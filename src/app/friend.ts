@@ -9,4 +9,5 @@ export interface Friend {
     avatarfull: string;
     realname?: string;
     gameid?: string;
+    selected?: boolean;
 }

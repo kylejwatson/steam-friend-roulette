@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Friend } from '../friend';
-import { FriendsService } from '../friends.service';
+import { SteamService } from '../steam.service';
+import { Game } from '../game';
 
 @Component({
   selector: 'app-friends',
@@ -9,15 +10,38 @@ import { FriendsService } from '../friends.service';
 })
 export class FriendsComponent implements OnInit {
   friends: Friend[] = [];
+  games: Game[] = [];
+  steamId = '76561198041984934';
 
-  constructor(private friendsService: FriendsService) { }
+  constructor(private steamService: SteamService) { }
 
   ngOnInit(): void {
     this.getFriends();
   }
 
   getFriends(): void {
-    this.friendsService.getFriends('76561198041984934').subscribe(friends => this.friends = friends);
+    this.steamService.getFriends(this.steamId).subscribe(friends => this.friends = friends);
   }
 
+  onlineFriends(): Friend[] {
+    return this.friends.filter(friend => friend.personastate === 1 && !friend.selected);
+  }
+  inGameFriends(): Friend[] {
+    return this.friends.filter(friend => friend.gameid && !friend.selected);
+  }
+  selectedFriends(): Friend[] {
+    return this.friends.filter(friend => friend.selected);
+  }
+  otherFriends(): Friend[] {
+    return this.friends.filter(friend => friend.personastate !== 1 && !friend.gameid && !friend.selected);
+  }
+  toggleFriend(steamId: string): void {
+    const toggledFriend = this.friends.find(friend => friend.steamid === steamId);
+    if (toggledFriend) {
+      toggledFriend.selected = !toggledFriend.selected;
+    }
+  }
+  getGames(): void {
+    this.steamService.getGames(this.steamId).subscribe(games => this.games = games);
+  }
 }

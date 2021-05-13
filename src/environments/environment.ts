@@ -4,7 +4,8 @@
 
 export const environment = {
   production: false,
-  serverUrl: 'http://localhost:3000'
+  serverUrl: 'http://localhost:3000',
+  steamImageUrl: 'http://media.steampowered.com/steamcommunity/public/images/apps'
 };
 
 /*

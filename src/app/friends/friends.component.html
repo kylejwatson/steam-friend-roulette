@@ -1,11 +1,16 @@
 <h2>My Friends</h2>
-<ul class="friends">
-    <div *ngFor="let friend of friends">
-        <img src={{friend.avatar}} />
-        <p class="badge">Name: {{friend.personaname}}</p>
-        <p class="badge">Real Name: {{friend.realname}}</p>
-        <p class="badge">Visibility: {{friend.communityvisibilitystate}}</p>
-        <p class="badge">Profile: {{friend.profilestate}}</p>
-        {{friend.timecreated}}
+<label>Selected</label>
+<app-friend-list [friends]="selectedFriends()" (selectedFriendEvent)="toggleFriend($event)"></app-friend-list>
+<label>Online</label>
+<app-friend-list [friends]="onlineFriends()" (selectedFriendEvent)="toggleFriend($event)"></app-friend-list>
+<label>In-game</label>
+<app-friend-list [friends]="inGameFriends()" (selectedFriendEvent)="toggleFriend($event)"></app-friend-list>
+<label>Away/Offline</label>
+<app-friend-list [friends]="otherFriends()" (selectedFriendEvent)="toggleFriend($event)"></app-friend-list>
+<button (click)="getGames()">Get shared games</button>
+
+<div>
+    <div *ngFor="let game of games">
+        <label>{{game.name}}</label><img [src]="game.img_logo_url" />
     </div>
-</ul>
+</div>

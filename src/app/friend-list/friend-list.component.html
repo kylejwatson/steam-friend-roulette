@@ -1,0 +1,4 @@
+<div *ngFor="let friend of friends" (click)="selectFriend(friend)">
+    <img [src]="friend.avatar" />
+    <label>{{friend.personaname}} <span *ngIf="friend.realname">({{friend.realname}})</span></label>
+</div>
