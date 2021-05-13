@@ -1,0 +1,11 @@
+<h2>My Friends</h2>
+<ul class="friends">
+    <div *ngFor="let friend of friends">
+        <img src={{friend.avatar}} />
+        <p class="badge">Name: {{friend.personaname}}</p>
+        <p class="badge">Real Name: {{friend.realname}}</p>
+        <p class="badge">Visibility: {{friend.communityvisibilitystate}}</p>
+        <p class="badge">Profile: {{friend.profilestate}}</p>
+        {{friend.timecreated}}
+    </div>
+</ul>
