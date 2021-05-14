@@ -24,4 +24,11 @@ export class FriendListComponent implements OnInit {
     this.friends.forEach(friend => this.selectFriend(friend));
   }
 
+  scrollToTop(el: HTMLElement): void {
+    el.scroll({
+      top: 0,
+      behavior: 'smooth'
+    });
+  }
+
 }

@@ -1,0 +1,26 @@
+@use 'sass:map';
+@import '~@angular/material/theming';
+@import '../../variables.scss';
+
+.friend-expansion {
+    margin: $margin;
+}
+
+.friend-card {
+    margin: $margin;
+    cursor: pointer;
+    transition: ease 0.2s;
+    &:hover {
+        background-color: map.get($mat-pink, 200);
+    }
+}
+.friend-list {
+    margin: $margin;
+    max-height: 300px;
+    overflow: auto;
+}
+.scroll-button {
+    position: absolute;
+    bottom: $margin;
+    right: $margin;
+}

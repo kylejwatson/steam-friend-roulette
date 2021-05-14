@@ -1,3 +1,8 @@
-.selected {
-    border: 1px red solid;
+.friend-selection {
+    display: flex;
+    width: 100%;
+}
+
+.friend-list {
+    flex-grow: 1;
 }
