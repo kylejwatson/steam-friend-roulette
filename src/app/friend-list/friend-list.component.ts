@@ -10,6 +10,7 @@ export class FriendListComponent implements OnInit {
 
   @Output() selectedFriendEvent = new EventEmitter<string>();
   @Input() friends: Friend[] = [];
+  @Input() title = 'Friends';
   constructor() { }
 
   ngOnInit(): void {
@@ -17,6 +18,10 @@ export class FriendListComponent implements OnInit {
 
   selectFriend(friend: Friend): void {
     this.selectedFriendEvent.emit(friend.steamid);
+  }
+
+  selectAll(): void {
+    this.friends.forEach(friend => this.selectFriend(friend));
   }
 
 }

@@ -1,4 +1,15 @@
-<div *ngFor="let friend of friends" (click)="selectFriend(friend)">
-    <img [src]="friend.avatar" />
-    <label>{{friend.personaname}} <span *ngIf="friend.realname">({{friend.realname}})</span></label>
-</div>
+<mat-expansion-panel>
+    <mat-expansion-panel-header>
+        <mat-panel-title>
+            {{title}}
+        </mat-panel-title>
+        <mat-panel-description>
+            ({{friends.length}})
+        </mat-panel-description>
+    </mat-expansion-panel-header>
+    <button [disabled]="!friends.length" (click)="selectAll()" mat-raised-button>Select All</button>
+    <div *ngFor="let friend of friends" (click)="selectFriend(friend)">
+        <img [src]="friend.avatar" />
+        <label>{{friend.personaname}} <span *ngIf="friend.realname">({{friend.realname}})</span></label>
+    </div>
+</mat-expansion-panel>
