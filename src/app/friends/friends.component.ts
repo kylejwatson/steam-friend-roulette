@@ -42,6 +42,8 @@ export class FriendsComponent implements OnInit {
     }
   }
   getGames(): void {
-    this.steamService.getGames(this.steamId).subscribe(games => this.games = games);
+    const steamIds = this.selectedFriends().map(friend => friend.steamid);
+    steamIds.unshift(this.steamId);
+    this.steamService.getGames(steamIds).subscribe(games => this.games = games);
   }
 }

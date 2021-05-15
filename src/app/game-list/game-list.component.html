@@ -1,0 +1,30 @@
+<mat-expansion-panel class="game-expansion">
+    <mat-expansion-panel-header>
+        <mat-panel-title>
+            Shared Games
+        </mat-panel-title>
+        <mat-panel-description>
+            ({{games.length}})
+        </mat-panel-description>
+    </mat-expansion-panel-header>
+
+    <div class="game-list" #listElement>
+        <mat-card *ngFor="let game of games" class="game-card">
+            <mat-card-header>
+                <img mat-card-avatar [src]="game.img_icon_url" />
+                <mat-card-title>{{game.name}}</mat-card-title>
+                <!-- <mat-card-subtitle>{{game.realname}}</mat-card-subtitle> -->
+            </mat-card-header>
+            <div class="card-content">
+                <p class="card-text">
+                    {{convertGameTime(game.playtime_forever)}}
+                </p>
+                <img [src]="game.img_logo_url" class="cover-image" />
+            </div>
+        </mat-card>
+    </div>
+    <button [disabled]="!games.length" mat-fab aria-label="Scroll back to the top of the list" class="scroll-button"
+        (click)="scrollToTop(listElement)">
+        <mat-icon>arrow_upward</mat-icon>
+    </button>
+</mat-expansion-panel>

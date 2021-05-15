@@ -12,12 +12,14 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
+import { GameListComponent } from './game-list/game-list.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     FriendsComponent,
-    FriendListComponent
+    FriendListComponent,
+    GameListComponent
   ],
   imports: [
     BrowserModule,

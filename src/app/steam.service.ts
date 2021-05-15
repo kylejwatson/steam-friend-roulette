@@ -15,8 +15,8 @@ export class SteamService {
   private makeFriendsUrl(steamId: string): string {
     return `${environment.serverUrl}/friendSummary?steamid=${steamId}`;
   }
-  private makeGamesUrl(steamId: string): string {
-    return `${environment.serverUrl}/owned?steamid=${steamId}`;
+  private makeGamesUrl(steamIds: string[]): string {
+    return `${environment.serverUrl}/shared?steamids=${steamIds}`;
   }
   private makeGameImageUrls(game: Game): Game {
     return {
@@ -32,8 +32,8 @@ export class SteamService {
     return friendsResponse;
   }
 
-  getGames(steamId: string): Observable<Game[]> {
-    const url = this.makeGamesUrl(steamId);
+  getGames(steamIds: string[]): Observable<Game[]> {
+    const url = this.makeGamesUrl(steamIds);
     const gamesResponse = this.http.get<Game[]>(url); // http://media.steampowered.com/steamcommunity/public/images/apps/{appid}/{hash}.jpg
 
     return gamesResponse.pipe(map(games => games.map(this.makeGameImageUrls)));

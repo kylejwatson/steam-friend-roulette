@@ -1,0 +1,26 @@
+@import '../../variables.scss';
+
+.game-expansion {
+    margin: $margin;
+}
+
+.game-card {
+    margin: $margin;
+}
+.game-list {
+    margin: $margin;
+    max-height: 300px;
+    overflow: auto;
+}
+.scroll-button {
+    position: absolute;
+    bottom: $margin;
+    right: $margin;
+}
+.card-content {
+    display: flex;
+    margin: $margin 0;
+    p, img {
+        flex-grow: 1;
+    }
+}
