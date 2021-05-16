@@ -1,4 +1,13 @@
 <h2>My Friends</h2>
+<div class="id-input-holder">
+    <mat-form-field appearance="standard" class="id-input">
+        <mat-label>Steam ID</mat-label>
+        <input [(ngModel)]="steamId" matInput placeholder="01234567890123456">
+        <mat-hint>You can find this by going to your Steam profile in a web browser and taking the 17 digit number from
+            after 'profiles/'. Example: https://steamcommunity.com/profiles/01234567890123456/</mat-hint>
+    </mat-form-field>
+</div>
+<button (click)="getFriends()" mat-raised-button class="games-button">Get friends</button>
 <div class="friend-selection">
     <div class="friend-list">
         <app-friend-list [friends]="selectedFriends()" (selectedFriendEvent)="toggleFriend($event)" title="Selected">

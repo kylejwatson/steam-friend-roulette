@@ -12,3 +12,12 @@
 .games-button {
     margin: 0 $margin;
 }
+
+.id-input-holder {
+    width: 100%;
+    display: flex;
+}
+.id-input {
+    margin: $margin;
+    flex-grow: 1;
+}

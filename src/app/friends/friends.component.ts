@@ -11,12 +11,11 @@ import { Game } from '../game';
 export class FriendsComponent implements OnInit {
   friends: Friend[] = [];
   games: Game[] = [];
-  steamId = '76561198041984934';
+  steamId = '';
 
   constructor(private steamService: SteamService) { }
 
   ngOnInit(): void {
-    this.getFriends();
   }
 
   getFriends(): void {
