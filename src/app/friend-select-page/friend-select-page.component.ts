@@ -1,21 +1,38 @@
 import { Component, OnInit } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
 import { Friend } from '../friend';
 import { SteamService } from '../steam.service';
-import { Game } from '../game';
 
 @Component({
-  selector: 'app-friends',
-  templateUrl: './friends.component.html',
-  styleUrls: ['./friends.component.scss']
+  selector: 'app-friend-select-page',
+  templateUrl: './friend-select-page.component.html',
+  styleUrls: ['./friend-select-page.component.scss']
 })
-export class FriendsComponent implements OnInit {
-  friends: Friend[] = [];
-  games: Game[] = [];
-  steamId = '';
+export class FriendSelectPageComponent implements OnInit {
 
-  constructor(private steamService: SteamService) { }
+  steamId = '';
+  friends: Friend[] = [];
+
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router,
+    private steamService: SteamService
+  ) { }
 
   ngOnInit(): void {
+    this.getSteamId();
+  }
+
+  getSteamId(): void {
+    this.route.paramMap.subscribe(params => {
+      const id = params.get('id');
+      if (!id) {
+        this.router.navigate(['/steam-id']);
+        return;
+      }
+      this.steamId = id;
+      this.getFriends();
+    });
   }
 
   getFriends(): void {
@@ -40,9 +57,14 @@ export class FriendsComponent implements OnInit {
       toggledFriend.selected = !toggledFriend.selected;
     }
   }
+
   getGames(): void {
-    const steamIds = this.selectedFriends().map(friend => friend.steamid);
-    steamIds.unshift(this.steamId);
-    this.steamService.getGames(steamIds).subscribe(games => this.games = games);
+    this.steamService.selectedFriends = this.selectedFriends();
+    this.router.navigate(['/game-view', { id: this.steamId }]);
   }
+
+  goBack(): void {
+    this.router.navigate(['/steam-id']);
+  }
+
 }

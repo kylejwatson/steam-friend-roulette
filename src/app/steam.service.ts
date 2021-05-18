@@ -12,6 +12,8 @@ import { Game } from './game';
 export class SteamService {
   constructor(private http: HttpClient) { }
 
+  selectedFriends: Friend[] = [];
+
   private makeFriendsUrl(steamId: string): string {
     return `${environment.serverUrl}/friendSummary?steamid=${steamId}`;
   }

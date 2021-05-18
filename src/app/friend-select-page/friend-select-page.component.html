@@ -1,0 +1,17 @@
+<button (click)="goBack()" mat-raised-button class="back-button">Back to Steam ID entry </button>
+<div class="friend-selection">
+    <div class="friend-list">
+        <app-friend-list [friends]="selectedFriends()" (selectedFriendEvent)="toggleFriend($event)" title="Selected">
+        </app-friend-list>
+        <button (click)="getGames()" mat-raised-button class="games-button"
+            [disabled]="selectedFriends().length === 0">Get shared games</button>
+    </div>
+    <div class="friend-list">
+        <app-friend-list [friends]="onlineFriends()" (selectedFriendEvent)="toggleFriend($event)" title="Online">
+        </app-friend-list>
+        <app-friend-list [friends]="inGameFriends()" (selectedFriendEvent)="toggleFriend($event)" title="In-game">
+        </app-friend-list>
+        <app-friend-list [friends]="otherFriends()" (selectedFriendEvent)="toggleFriend($event)" title="Away/Offline">
+        </app-friend-list>
+    </div>
+</div>

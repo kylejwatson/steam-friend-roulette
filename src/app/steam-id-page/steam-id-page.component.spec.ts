@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { FriendsComponent } from './friends.component';
+import { SteamIdPageComponent } from './steam-id-page.component';
 
-describe('FriendsComponent', () => {
-  let component: FriendsComponent;
-  let fixture: ComponentFixture<FriendsComponent>;
+describe('SteamIdPageComponent', () => {
+  let component: SteamIdPageComponent;
+  let fixture: ComponentFixture<SteamIdPageComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ FriendsComponent ]
+      declarations: [ SteamIdPageComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(FriendsComponent);
+    fixture = TestBed.createComponent(SteamIdPageComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

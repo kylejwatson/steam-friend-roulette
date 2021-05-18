@@ -1,0 +1,10 @@
+@import '../../variables.scss';
+
+.id-input-holder {
+    width: 100%;
+    display: flex;
+}
+.id-input {
+    margin: $margin;
+    flex-grow: 1;
+}

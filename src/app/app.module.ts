@@ -5,7 +5,6 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { FriendsComponent } from './friends/friends.component';
 import { FriendListComponent } from './friend-list/friend-list.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatExpansionModule } from '@angular/material/expansion';
@@ -15,14 +14,19 @@ import { MatIconModule } from '@angular/material/icon';
 import { GameListComponent } from './game-list/game-list.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { SteamIdPageComponent } from './steam-id-page/steam-id-page.component';
+import { FriendSelectPageComponent } from './friend-select-page/friend-select-page.component';
+import { GameViewPageComponent } from './game-view-page/game-view-page.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    FriendsComponent,
     FriendListComponent,
-    GameListComponent
+    GameListComponent,
+    SteamIdPageComponent,
+    FriendSelectPageComponent,
+    GameViewPageComponent
   ],
   imports: [
     BrowserModule,
