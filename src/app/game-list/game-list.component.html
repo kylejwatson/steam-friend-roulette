@@ -17,7 +17,7 @@
             </mat-card-header>
             <div class="card-content">
                 <p class="card-text">
-                    {{convertGameTime(game.playtime_forever)}}
+                    {{convertGameTime(game.userStats[0].playtime_forever)}}
                 </p>
                 <img [src]="game.img_logo_url" class="cover-image" />
             </div>

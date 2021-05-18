@@ -18,7 +18,6 @@ import { SteamIdPageComponent } from './steam-id-page/steam-id-page.component';
 import { FriendSelectPageComponent } from './friend-select-page/friend-select-page.component';
 import { GameViewPageComponent } from './game-view-page/game-view-page.component';
 
-
 @NgModule({
   declarations: [
     AppComponent,
