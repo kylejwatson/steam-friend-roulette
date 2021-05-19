@@ -6,4 +6,13 @@
             after 'profiles/'. Example: https://steamcommunity.com/profiles/01234567890123456/</mat-hint>
     </mat-form-field>
 </div>
-<button (click)="getFriends()" mat-raised-button class="games-button">Get friends</button>
+<div class="button-holder">
+    <p>
+        Alternatively you can sign in using the button below. This shares your Steam information with us but we only use
+        it for finding your Steam ID.
+    </p>
+    <a href={{loginUrl}}><img src="assets/sits_01.png" /></a>
+</div>
+<div class="button-holder">
+    <button (click)="getFriends()" mat-raised-button class="games-button">Get friends</button>
+</div>

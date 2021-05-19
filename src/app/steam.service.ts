@@ -36,7 +36,7 @@ export class SteamService {
 
   getGames(steamIds: string[]): Observable<Game[]> {
     const url = this.makeGamesUrl(steamIds);
-    const gamesResponse = this.http.get<Game[]>(url); // http://media.steampowered.com/steamcommunity/public/images/apps/{appid}/{hash}.jpg
+    const gamesResponse = this.http.get<Game[]>(url);
 
     return gamesResponse.pipe(map(games => games.map(this.makeGameImageUrls)));
   }

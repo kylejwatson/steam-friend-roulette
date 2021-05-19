@@ -64,7 +64,6 @@ export class FriendSelectPageComponent implements OnInit {
   }
 
   goBack(): void {
-    this.router.navigate(['/steam-id']);
+    this.router.navigate(['/steam-id', { id: this.steamId }]);
   }
-
 }
