@@ -17,6 +17,8 @@ import { MatInputModule } from '@angular/material/input';
 import { SteamIdPageComponent } from './steam-id-page/steam-id-page.component';
 import { FriendSelectPageComponent } from './friend-select-page/friend-select-page.component';
 import { GameViewPageComponent } from './game-view-page/game-view-page.component';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { LoadingOverlayComponent } from './loading-overlay/loading-overlay.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +27,8 @@ import { GameViewPageComponent } from './game-view-page/game-view-page.component
     GameListComponent,
     SteamIdPageComponent,
     FriendSelectPageComponent,
-    GameViewPageComponent
+    GameViewPageComponent,
+    LoadingOverlayComponent
   ],
   imports: [
     BrowserModule,
@@ -38,7 +41,8 @@ import { GameViewPageComponent } from './game-view-page/game-view-page.component
     MatCardModule,
     MatIconModule,
     MatFormFieldModule,
-    MatInputModule
+    MatInputModule,
+    MatProgressSpinnerModule
   ],
   providers: [],
   bootstrap: [AppComponent]

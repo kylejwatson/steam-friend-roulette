@@ -12,6 +12,7 @@ import { SteamService } from '../steam.service';
 export class GameViewPageComponent extends SteamIdParam implements OnInit {
 
   games: Game[] = [];
+  loading = true;
 
   constructor(
     route: ActivatedRoute,
@@ -35,9 +36,13 @@ export class GameViewPageComponent extends SteamIdParam implements OnInit {
   }
 
   getGames(): void {
+    this.loading = true;
     const steamIds = this.steamService.selectedFriends.map(friend => friend.steamid);
     steamIds.unshift(this.steamId);
-    this.steamService.getGames(steamIds).subscribe(games => this.games = games);
+    this.steamService.getGames(steamIds).subscribe(games => {
+      this.games = games;
+      this.loading = false;
+    });
   }
 
   goBack(): void {

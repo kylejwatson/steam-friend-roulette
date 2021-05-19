@@ -1,3 +1,4 @@
+<app-loading-overlay *ngIf="loading" (cancelEvent)="goBack()"></app-loading-overlay>
 <button (click)="goBack()" mat-raised-button class="back-button">Back to Steam ID entry </button>
 <div class="friend-selection">
     <div class="friend-list">

@@ -1,2 +1,3 @@
+<app-loading-overlay *ngIf="loading" (cancelEvent)="goBack()"></app-loading-overlay>
 <button (click)="goBack()" mat-raised-button class="back-button">Back to friend selection</button>
 <app-game-list [games]="games"></app-game-list>

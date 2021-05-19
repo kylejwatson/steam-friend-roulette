@@ -1,0 +1,17 @@
+@import '../../variables.scss';
+.loading-container {
+    position: absolute;
+    top:0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: rgba(black, 0.12);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 1;
+}
+.cancel-button {
+    margin: $margin;
+}

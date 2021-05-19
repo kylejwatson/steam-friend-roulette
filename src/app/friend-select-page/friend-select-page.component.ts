@@ -12,6 +12,7 @@ import { SteamService } from '../steam.service';
 export class FriendSelectPageComponent extends SteamIdParam implements OnInit {
 
   friends: Friend[] = [];
+  loading = true;
 
   constructor(
     route: ActivatedRoute,
@@ -27,7 +28,11 @@ export class FriendSelectPageComponent extends SteamIdParam implements OnInit {
   }
 
   getFriends(): void {
-    this.steamService.getFriends(this.steamId).subscribe(friends => this.friends = friends);
+    this.loading = true;
+    this.steamService.getFriends(this.steamId).subscribe(friends => {
+      this.friends = friends;
+      this.loading = false;
+    });
   }
 
   onlineFriends(): Friend[] {
