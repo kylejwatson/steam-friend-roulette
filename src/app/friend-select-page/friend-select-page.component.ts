@@ -10,14 +10,12 @@ import { SteamService } from '../steam.service';
   styleUrls: ['./friend-select-page.component.scss']
 })
 export class FriendSelectPageComponent extends SteamIdParam implements OnInit {
-
-  friends: Friend[] = [];
   loading = true;
 
   constructor(
     route: ActivatedRoute,
     private router: Router,
-    private steamService: SteamService
+    public steamService: SteamService
   ) { super(route); }
 
   ngOnInit(): void {
@@ -29,37 +27,17 @@ export class FriendSelectPageComponent extends SteamIdParam implements OnInit {
 
   getFriends(): void {
     this.loading = true;
-    this.steamService.getFriends(this.steamId).subscribe(friends => {
-      this.friends = friends;
-      this.loading = false;
-    });
-  }
-
-  onlineFriends(): Friend[] {
-    return this.friends.filter(friend => friend.personastate === 1 && !friend.selected);
-  }
-  inGameFriends(): Friend[] {
-    return this.friends.filter(friend => friend.gameid && !friend.selected);
-  }
-  selectedFriends(): Friend[] {
-    return this.friends.filter(friend => friend.selected);
-  }
-  otherFriends(): Friend[] {
-    return this.friends.filter(friend => friend.personastate !== 1 && !friend.gameid && !friend.selected);
-  }
-  toggleFriend(steamId: string): void {
-    const toggledFriend = this.friends.find(friend => friend.steamid === steamId);
-    if (toggledFriend) {
-      toggledFriend.selected = !toggledFriend.selected;
-    }
+    this.steamService.getFriends(this.steamId).subscribe(() => this.loading = false);
   }
 
   getGames(): void {
-    this.steamService.selectedFriends = this.selectedFriends();
     this.router.navigate(['/game-view', { id: this.steamId }]);
   }
 
   goBack(): void {
     this.router.navigate(['/steam-id', { id: this.steamId }]);
+  }
+  refresh(): void {
+    this.getFriends();
   }
 }

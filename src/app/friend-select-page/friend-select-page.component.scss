@@ -12,3 +12,13 @@
 .games-button {
     margin: 0 $margin;
 }
+.buttons-container {
+    display: flex;
+    justify-content: space-between;
+}
+.back-button {
+    margin: $margin;
+}
+.refresh-icon {
+    margin-right: 8px;
+}

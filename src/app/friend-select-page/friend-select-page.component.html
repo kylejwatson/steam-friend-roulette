@@ -1,18 +1,24 @@
 <app-loading-overlay *ngIf="loading" (cancelEvent)="goBack()"></app-loading-overlay>
-<button (click)="goBack()" mat-raised-button class="back-button">Back to Steam ID entry </button>
+<div class="buttons-container">
+    <button (click)="goBack()" mat-raised-button class="back-button">Back to Steam ID entry </button>
+    <button (click)="refresh()" mat-button class="back-button" color="accent">
+        <mat-icon class="refresh-icon">refresh</mat-icon> Refresh friends list
+    </button>
+</div>
 <div class="friend-selection">
     <div class="friend-list">
-        <app-friend-list [friends]="selectedFriends()" (selectedFriendEvent)="toggleFriend($event)" title="Selected">
+        <app-friend-list [friends]="steamService.selectedFriends()"
+            (selectedFriendEvent)="steamService.toggleFriend($event)" title="Selected">
         </app-friend-list>
         <button (click)="getGames()" mat-raised-button class="games-button"
-            [disabled]="selectedFriends().length === 0">Get shared games</button>
+            [disabled]="steamService.selectedFriends().length === 0">Get shared games</button>
     </div>
     <div class="friend-list">
-        <app-friend-list [friends]="onlineFriends()" (selectedFriendEvent)="toggleFriend($event)" title="Online">
+        <app-friend-list [friends]="steamService.onlineFriends()"
+            (selectedFriendEvent)="steamService.toggleFriend($event)" title="Online">
         </app-friend-list>
-        <app-friend-list [friends]="inGameFriends()" (selectedFriendEvent)="toggleFriend($event)" title="In-game">
-        </app-friend-list>
-        <app-friend-list [friends]="otherFriends()" (selectedFriendEvent)="toggleFriend($event)" title="Away/Offline">
+        <app-friend-list [friends]="steamService.otherFriends()"
+            (selectedFriendEvent)="steamService.toggleFriend($event)" title="Away/Offline">
         </app-friend-list>
     </div>
 </div>

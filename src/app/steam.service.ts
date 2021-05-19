@@ -12,7 +12,7 @@ import { Game } from './game';
 export class SteamService {
   constructor(private http: HttpClient) { }
 
-  selectedFriends: Friend[] = [];
+  friends: Friend[] = [];
 
   private makeFriendsUrl(steamId: string): string {
     return `${environment.serverUrl}/friendSummary?steamid=${steamId}`;
@@ -31,7 +31,32 @@ export class SteamService {
   getFriends(steamId: string): Observable<Friend[]> {
     const url = this.makeFriendsUrl(steamId);
     const friendsResponse = this.http.get<Friend[]>(url);
+    friendsResponse.subscribe(friends => {
+      this.friends = friends.map(friend => {
+        const alreadyLoaded = this.friends.find(currentFriend => currentFriend.steamid === friend.steamid);
+        return {
+          ...friend,
+          selected: alreadyLoaded?.selected
+        };
+      });
+    });
     return friendsResponse;
+  }
+
+  onlineFriends(): Friend[] {
+    return this.friends.filter(friend => friend.personastate === 1 && !friend.selected);
+  }
+  selectedFriends(): Friend[] {
+    return this.friends.filter(friend => friend.selected);
+  }
+  otherFriends(): Friend[] {
+    return this.friends.filter(friend => friend.personastate !== 1 && !friend.gameid && !friend.selected);
+  }
+  toggleFriend(steamId: string): void {
+    const toggledFriend = this.friends.find(friend => friend.steamid === steamId);
+    if (toggledFriend) {
+      toggledFriend.selected = !toggledFriend.selected;
+    }
   }
 
   getGames(steamIds: string[]): Observable<Game[]> {
