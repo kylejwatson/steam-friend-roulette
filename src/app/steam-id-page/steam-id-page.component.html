@@ -14,5 +14,5 @@
     <a href={{loginUrl}}><img src="assets/sits_01.png" /></a>
 </div>
 <div class="button-holder">
-    <button (click)="getFriends()" mat-raised-button class="games-button">Get friends</button>
+    <button (click)="getFriends()" mat-raised-button class="games-button" [disabled]="!steamId">Get friends</button>
 </div>

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Friend } from '../friend';
+import { SteamIdParam } from '../steam-id-param';
 import { SteamService } from '../steam.service';
 
 @Component({
@@ -8,31 +9,21 @@ import { SteamService } from '../steam.service';
   templateUrl: './friend-select-page.component.html',
   styleUrls: ['./friend-select-page.component.scss']
 })
-export class FriendSelectPageComponent implements OnInit {
+export class FriendSelectPageComponent extends SteamIdParam implements OnInit {
 
-  steamId = '';
   friends: Friend[] = [];
 
   constructor(
-    private route: ActivatedRoute,
+    route: ActivatedRoute,
     private router: Router,
     private steamService: SteamService
-  ) { }
+  ) { super(route); }
 
   ngOnInit(): void {
-    this.getSteamId();
-  }
-
-  getSteamId(): void {
-    this.route.paramMap.subscribe(params => {
-      const id = params.get('id');
-      if (!id) {
-        this.router.navigate(['/steam-id']);
-        return;
-      }
-      this.steamId = id;
-      this.getFriends();
-    });
+    this.getSteamId(
+      () => this.getFriends(),
+      () => this.router.navigate(['/steam-id'])
+    );
   }
 
   getFriends(): void {
