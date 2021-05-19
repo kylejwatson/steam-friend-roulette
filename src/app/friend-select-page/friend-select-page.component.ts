@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { Friend } from '../friend';
+import { CookieService } from 'ngx-cookie';
 import { SteamIdParam } from '../steam-id-param';
 import { SteamService } from '../steam.service';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-friend-select-page',
@@ -13,10 +14,12 @@ export class FriendSelectPageComponent extends SteamIdParam implements OnInit {
   loading = true;
 
   constructor(
+    router: Router,
     route: ActivatedRoute,
-    private router: Router,
-    public steamService: SteamService
-  ) { super(route); }
+    cookie: CookieService,
+    location: Location,
+    public steamService: SteamService,
+  ) { super(router, route, cookie, location); }
 
   ngOnInit(): void {
     this.getSteamId(
@@ -31,11 +34,11 @@ export class FriendSelectPageComponent extends SteamIdParam implements OnInit {
   }
 
   getGames(): void {
-    this.router.navigate(['/game-view', { id: this.steamId }]);
+    this.router.navigate(['/game-view'], { queryParams: { id: this.steamId } });
   }
 
   goBack(): void {
-    this.router.navigate(['/steam-id', { id: this.steamId }]);
+    this.router.navigate(['/steam-id'], { queryParams: { id: this.steamId } });
   }
   refresh(): void {
     this.getFriends();

@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { CookieService } from 'ngx-cookie';
 import { Game } from '../game';
 import { SteamIdParam } from '../steam-id-param';
 import { SteamService } from '../steam.service';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-game-view-page',
@@ -15,10 +17,12 @@ export class GameViewPageComponent extends SteamIdParam implements OnInit {
   loading = true;
 
   constructor(
+    router: Router,
     route: ActivatedRoute,
-    private router: Router,
+    cookie: CookieService,
+    location: Location,
     private steamService: SteamService
-  ) { super(route); }
+  ) { super(router, route, cookie, location); }
 
   ngOnInit(): void {
     this.getSteamId(
@@ -29,7 +33,7 @@ export class GameViewPageComponent extends SteamIdParam implements OnInit {
 
   getSelectedFriends(): void {
     if (this.steamService.selectedFriends().length === 0) {
-      this.router.navigate(['/friend-select', { id: this.steamId }]);
+      this.router.navigate(['/friend-select'], { queryParams: { id: this.steamId } });
       return;
     }
     this.getGames();
@@ -46,6 +50,6 @@ export class GameViewPageComponent extends SteamIdParam implements OnInit {
   }
 
   goBack(): void {
-    this.router.navigate(['/friend-select', { id: this.steamId }]);
+    this.router.navigate(['/friend-select'], { queryParams: { id: this.steamId } });
   }
 }

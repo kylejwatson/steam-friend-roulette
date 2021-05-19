@@ -19,6 +19,7 @@ import { FriendSelectPageComponent } from './friend-select-page/friend-select-pa
 import { GameViewPageComponent } from './game-view-page/game-view-page.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { LoadingOverlayComponent } from './loading-overlay/loading-overlay.component';
+import { CookieModule } from 'ngx-cookie';
 
 @NgModule({
   declarations: [
@@ -42,7 +43,8 @@ import { LoadingOverlayComponent } from './loading-overlay/loading-overlay.compo
     MatIconModule,
     MatFormFieldModule,
     MatInputModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    CookieModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]
