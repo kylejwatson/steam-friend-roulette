@@ -1,0 +1,18 @@
+@import '../../variables.scss';
+
+.buttons-container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.back-button {
+    margin: $margin;
+}
+.search-button {
+    margin: $margin;
+}
+
+.search-input {
+    margin-left: 64px;
+    flex-grow: 1;
+}

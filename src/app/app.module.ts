@@ -20,6 +20,7 @@ import { GameViewPageComponent } from './game-view-page/game-view-page.component
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { LoadingOverlayComponent } from './loading-overlay/loading-overlay.component';
 import { CookieModule } from 'ngx-cookie';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 
 @NgModule({
   declarations: [
@@ -44,7 +45,8 @@ import { CookieModule } from 'ngx-cookie';
     MatFormFieldModule,
     MatInputModule,
     MatProgressSpinnerModule,
-    CookieModule.forRoot()
+    CookieModule.forRoot(),
+    MatAutocompleteModule
   ],
   providers: [],
   bootstrap: [AppComponent]

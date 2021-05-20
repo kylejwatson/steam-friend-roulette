@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie';
 import { Game } from '../game';
 import { SteamIdParam } from '../steam-id-param';
 import { SteamService } from '../steam.service';
 import { Location } from '@angular/common';
+import { MatAutocompleteTrigger } from '@angular/material/autocomplete';
 
 @Component({
   selector: 'app-game-view-page',
@@ -13,8 +14,11 @@ import { Location } from '@angular/common';
 })
 export class GameViewPageComponent extends SteamIdParam implements OnInit {
 
+  searchInput = '';
+  currentSearch = '';
   games: Game[] = [];
   loading = true;
+  @ViewChild(MatAutocompleteTrigger) autocompleteTrigger?: MatAutocompleteTrigger;
 
   constructor(
     router: Router,
@@ -52,4 +56,22 @@ export class GameViewPageComponent extends SteamIdParam implements OnInit {
   goBack(): void {
     this.router.navigate(['/friend-select'], { queryParams: { id: this.steamId } });
   }
+
+  filteredResults(): Game[] {
+    return this.games.filter(game => game.name.toLowerCase().includes(this.searchInput.toLowerCase()));
+  }
+  displayFn(game: string): string {
+    return game || '';
+  }
+  onSearch(): void {
+    this.currentSearch = this.searchInput;
+    this.autocompleteTrigger?.closePanel();
+  }
+  searchedGames(): Game[] {
+    if (!this.currentSearch || !this.searchInput) {
+      return this.games;
+    }
+    return this.games.filter(game => game.name.toLowerCase().includes(this.currentSearch.toLowerCase()));
+  }
+
 }

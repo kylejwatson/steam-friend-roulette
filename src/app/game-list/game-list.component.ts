@@ -7,8 +7,8 @@ import { Game } from '../game';
   styleUrls: ['./game-list.component.scss']
 })
 export class GameListComponent implements OnInit {
-
   @Input() games: Game[] = [];
+
   constructor() { }
 
   ngOnInit(): void {
