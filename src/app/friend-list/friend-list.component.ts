@@ -1,5 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Friend } from '../friend';
+import { GameDetails } from '../game';
+import { SteamService } from '../steam.service';
 
 @Component({
   selector: 'app-friend-list',
@@ -11,7 +13,7 @@ export class FriendListComponent implements OnInit {
   @Output() selectedFriendEvent = new EventEmitter<string>();
   @Input() friends: Friend[] = [];
   @Input() title = 'Friends';
-  constructor() { }
+  constructor(public steamService: SteamService) { }
 
   ngOnInit(): void {
   }
@@ -29,6 +31,13 @@ export class FriendListComponent implements OnInit {
       top: 0,
       behavior: 'smooth'
     });
+  }
+
+  getGameDetails(friend: Friend): GameDetails | undefined {
+    if (friend.gameid) {
+      return this.steamService.getGameDetails(friend.gameid);
+    }
+    return undefined;
   }
 
 }

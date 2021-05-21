@@ -11,3 +11,17 @@ export interface Game {
     img_logo_url: string;
     userStats: UserStats[];
 }
+interface Category {
+    id: number;
+    description: string;
+}
+export interface GameDetails {
+    name: string;
+    steam_appid: string;
+    is_free: boolean;
+    detailed_description: string;
+    short_description: string;
+    about_the_game: string;
+    header_image: string;
+    categories: Category[];
+}
