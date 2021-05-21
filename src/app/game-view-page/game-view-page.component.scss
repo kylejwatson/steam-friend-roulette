@@ -1,8 +1,15 @@
 @import '../../variables.scss';
 
 .buttons-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    padding: $margin;
     display: flex;
     justify-content: space-between;
+    background-color: rgba(white, 0.88);
+    z-index: 1;
 }
 
 .back-button {

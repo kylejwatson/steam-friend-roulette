@@ -69,6 +69,7 @@ export class GameViewPageComponent extends SteamIdParam implements OnInit {
   }
   searchedGames(): Game[] {
     if (!this.currentSearch || !this.searchInput) {
+      this.currentSearch = '';
       return this.games;
     }
     return this.games.filter(game => game.name.toLowerCase().includes(this.currentSearch.toLowerCase()));

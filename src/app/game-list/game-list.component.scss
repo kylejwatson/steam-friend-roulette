@@ -1,5 +1,9 @@
 @import '../../variables.scss';
 
+.header-title{
+    margin: 96px $margin $margin $margin;
+}
+
 .game-expansion {
     margin: $margin;
 }
@@ -9,11 +13,9 @@
 }
 .game-list {
     margin: $margin;
-    max-height: 300px;
-    overflow: auto;
 }
 .scroll-button {
-    position: absolute;
+    position: fixed;
     bottom: $margin;
     right: $margin;
 }

@@ -71,7 +71,11 @@ export class SteamService {
     const url = this.makeSharedGamesUrl(steamIds);
     const gamesResponse = this.http.get<Game[]>(url);
 
-    return gamesResponse.pipe(map(games => games.map(this.makeGameImageUrls)));
+    return gamesResponse.pipe(map(games => {
+      const gameIds = games.map(game => game.appid);
+      this.getGames(gameIds);
+      return games.map(this.makeGameImageUrls);
+    }));
   }
   getGames(appIds: string[]): Observable<GameDetails[]> {
     const ids = appIds.filter(id => !this.games.find(game => game.steam_appid === id));

@@ -1,5 +1,6 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Inject, Input, OnInit } from '@angular/core';
 import { Game } from '../game';
+import { SteamService } from '../steam.service';
 
 @Component({
   selector: 'app-game-list',
@@ -9,7 +10,10 @@ import { Game } from '../game';
 export class GameListComponent implements OnInit {
   @Input() games: Game[] = [];
 
-  constructor() { }
+  constructor(
+    private window: Window,
+    private steamService: SteamService
+  ) { }
 
   ngOnInit(): void {
   }
@@ -26,10 +30,14 @@ export class GameListComponent implements OnInit {
     return `Played for ${hours} hours`;
   }
 
-  scrollToTop(el: HTMLElement): void {
-    el.scroll({
+  scrollToTop(): void {
+    this.window.scroll({
       top: 0,
       behavior: 'smooth'
     });
+  }
+
+  getCoverImage(game: Game): string {
+    return this.steamService.getGameDetails(game.appid)?.header_image || game.img_logo_url;
   }
 }

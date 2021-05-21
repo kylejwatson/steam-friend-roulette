@@ -48,7 +48,7 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
     CookieModule.forRoot(),
     MatAutocompleteModule
   ],
-  providers: [],
+  providers: [{ provide: Window, useValue: window }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
