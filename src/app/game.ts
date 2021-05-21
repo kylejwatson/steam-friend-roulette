@@ -11,9 +11,10 @@ export interface Game {
     img_logo_url: string;
     userStats: UserStats[];
 }
-interface Category {
+export interface Category {
     id: number;
     description: string;
+    checked: boolean;
 }
 export interface GameDetails {
     name: string;
@@ -25,3 +26,51 @@ export interface GameDetails {
     header_image: string;
     categories: Category[];
 }
+
+export const categories: Category[] = [
+    {
+        id: 2,
+        description: 'Single-player',
+        checked: true
+    },
+    {
+        id: 1,
+        description: 'Multi-player',
+        checked: true
+    },
+    {
+        id: 49,
+        description: 'PvP',
+        checked: true
+    },
+    {
+        id: 36,
+        description: 'Online PvP',
+        checked: true
+    },
+    {
+        id: 47,
+        description: 'LAN PvP',
+        checked: true
+    },
+    {
+        id: 9,
+        description: 'Co-op',
+        checked: true
+    },
+    {
+        id: 38,
+        description: 'Online Co-op',
+        checked: true
+    },
+    {
+        id: 48,
+        description: 'LAN Co-op',
+        checked: true
+    },
+    {
+        id: 20,
+        description: 'MMO',
+        checked: true
+    }
+];

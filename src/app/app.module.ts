@@ -21,6 +21,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { LoadingOverlayComponent } from './loading-overlay/loading-overlay.component';
 import { CookieModule } from 'ngx-cookie';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 @NgModule({
   declarations: [
@@ -46,7 +47,8 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
     MatInputModule,
     MatProgressSpinnerModule,
     CookieModule.forRoot(),
-    MatAutocompleteModule
+    MatAutocompleteModule,
+    MatCheckboxModule
   ],
   providers: [{ provide: Window, useValue: window }],
   bootstrap: [AppComponent]

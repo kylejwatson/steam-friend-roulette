@@ -4,7 +4,7 @@ import { map } from 'rxjs/operators';
 import { Friend } from './friend';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
-import { Game, GameDetails } from './game';
+import { Category, Game, GameDetails } from './game';
 
 @Injectable({
   providedIn: 'root'
@@ -82,7 +82,9 @@ export class SteamService {
     if (ids.length) {
       const url = this.makeGamesUrl(appIds);
       const gamesResponse = this.http.get<GameDetails[]>(url);
-      gamesResponse.subscribe(games => this.games.push(...games));
+      gamesResponse.subscribe(games => {
+        this.games.push(...games);
+      });
       return gamesResponse;
     }
     return new Observable(observer => {

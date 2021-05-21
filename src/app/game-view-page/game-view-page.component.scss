@@ -1,17 +1,18 @@
 @import '../../variables.scss';
 
-.buttons-container {
+.controls-container {
     position: fixed;
     top: 0;
     left: 0;
     right: 0;
     padding: $margin;
-    display: flex;
-    justify-content: space-between;
     background-color: rgba(white, 0.88);
     z-index: 1;
 }
-
+.buttons-container {
+    display: flex;
+    justify-content: space-between;
+}
 .back-button {
     margin: $margin;
 }
@@ -22,4 +23,19 @@
 .search-input {
     margin-left: 64px;
     flex-grow: 1;
+}
+.filter-expansion {
+    position: fixed;
+    top: 96px;
+    right: 0;
+    margin: $margin;
+    background-color: rgba(white, 0.88);
+    z-index: 1;
+}
+.checkbox-container{
+    display: flex;
+    flex-direction: column;
+}
+.checkbox {
+    margin: $margin;
 }
