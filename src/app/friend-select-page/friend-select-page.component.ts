@@ -16,6 +16,9 @@ import { FormControl } from '@angular/forms';
 export class FriendSelectPageComponent extends SteamIdParam implements OnInit {
   loading = true;
   searchInput = '';
+  onlineFilter = true;
+  inGameFilter = true;
+  offlineFilter = true;
   @ViewChild(MatAutocompleteTrigger) autocompleteTrigger?: MatAutocompleteTrigger;
   searchForm = new FormControl('', () => {
     if (!this.searchInput) {
@@ -59,7 +62,7 @@ export class FriendSelectPageComponent extends SteamIdParam implements OnInit {
   refresh(): void {
     this.getFriends();
   }
-  filteredFriends(): Friend[] {
+  filteredFriendsAutoComplete(): Friend[] {
     return this.steamService.friends.filter(friend => friend.personaname.toLowerCase().includes(this.searchInput.toLowerCase()));
   }
   displayFn(personaname: string): string {
@@ -88,6 +91,21 @@ export class FriendSelectPageComponent extends SteamIdParam implements OnInit {
     this.window.scroll({
       top: 0,
       behavior: 'smooth'
+    });
+  }
+  filterSelected(friends: Friend[]): Friend[] {
+    return this.filteredFriends(friends.filter(friend => !friend.selected));
+  }
+  setOnline(checked: boolean): void {
+    this.inGameFilter = checked;
+    // This logic needs to be fixed
+  }
+  filteredFriends(friends: Friend[]): Friend[] {
+    return friends.filter(friend => {
+      const online = this.onlineFilter && (friend.personastate === 1 || friend.gameid);
+      const inGame = this.inGameFilter && friend.gameid;
+      const offline = this.offlineFilter && friend.personastate !== 1 && !friend.gameid;
+      return online || inGame || offline;
     });
   }
 }

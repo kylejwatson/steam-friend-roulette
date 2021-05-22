@@ -8,7 +8,7 @@
             <input type="text" matInput [matAutocomplete]="auto" [(ngModel)]="searchInput" (keyup.enter)="onSearch()"
                 #trigger="matAutocompleteTrigger" [formControl]="searchForm">
             <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn" (optionSelected)="onSearch()">
-                <mat-option *ngFor="let friend of filteredFriends()" [value]="friend.personaname">
+                <mat-option *ngFor="let friend of filteredFriendsAutoComplete()" [value]="friend.personaname">
                     {{friend.personaname}}
                 </mat-option>
             </mat-autocomplete>
@@ -23,17 +23,49 @@
         </button>
     </div>
 </div>
+<div class="filter-container">
+    <mat-expansion-panel class="filter-expansion" [expanded]="true">
+        <mat-expansion-panel-header>
+            <mat-panel-title>
+                Filters
+            </mat-panel-title>
+        </mat-expansion-panel-header>
+        <ul class="checkbox-container">
+            <li>
+                <mat-checkbox class="checkbox" [disabled]="!steamService.onlineFriends().length"
+                    [(ngModel)]="onlineFilter" [indeterminate]="!onlineFilter && inGameFilter"
+                    (change)="setOnline($event.checked)">
+                    Online
+                </mat-checkbox>
+                <ul>
+                    <li>
+                        <mat-checkbox class="checkbox" [disabled]="!steamService.inGameFriends().length"
+                            [(ngModel)]="inGameFilter">
+                            In-game
+                        </mat-checkbox>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <mat-checkbox class="checkbox" [disabled]="!steamService.otherFriends().length"
+                    [(ngModel)]="offlineFilter">
+                    Offline
+                </mat-checkbox>
+            </li>
+        </ul>
+    </mat-expansion-panel>
+</div>
 <div class="friend-selection">
     <div class="friend-list">
-        <app-friend-list [friends]="steamService.selectedFriends()"
+        <app-friend-list [friends]="filteredFriends(steamService.selectedFriends())"
             (selectedFriendEvent)="steamService.toggleFriend($event)" title="Selected">
         </app-friend-list>
     </div>
     <div class="friend-list">
-        <app-friend-list [friends]="steamService.onlineFriends()"
+        <app-friend-list [friends]="filterSelected(steamService.onlineFriends())"
             (selectedFriendEvent)="steamService.toggleFriend($event)" title="Online">
         </app-friend-list>
-        <app-friend-list [friends]="steamService.otherFriends()"
+        <app-friend-list [friends]="filterSelected(steamService.otherFriends())"
             (selectedFriendEvent)="steamService.toggleFriend($event)" title="Away/Offline">
         </app-friend-list>
     </div>

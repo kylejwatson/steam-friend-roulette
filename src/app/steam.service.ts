@@ -53,13 +53,16 @@ export class SteamService {
   }
 
   onlineFriends(): Friend[] {
-    return this.friends.filter(friend => (friend.personastate === 1 || friend.gameid) && !friend.selected);
+    return this.friends.filter(friend => friend.personastate === 1 || friend.gameid);
+  }
+  inGameFriends(): Friend[] {
+    return this.onlineFriends().filter(friend => friend.gameid);
   }
   selectedFriends(): Friend[] {
     return this.friends.filter(friend => friend.selected);
   }
   otherFriends(): Friend[] {
-    return this.friends.filter(friend => friend.personastate !== 1 && !friend.gameid && !friend.selected);
+    return this.friends.filter(friend => friend.personastate !== 1 && !friend.gameid);
   }
   toggleFriend(steamId: string): void {
     const toggledFriend = this.friends.find(friend => friend.steamid === steamId);

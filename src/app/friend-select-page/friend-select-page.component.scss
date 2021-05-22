@@ -18,7 +18,7 @@
     justify-content: center;
 }
 .games-button {
-    margin-bottom: 32px;
+    margin: $margin;
     padding: 8px;
     &:disabled {
         background-color: rgb(224.4,224.4,224.4);
@@ -54,4 +54,25 @@
     padding: $margin;
     background-color: rgba(white, 0.88);
     z-index: 1;
+}
+.filter-container {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    z-index: 1;
+    pointer-events: none;
+}
+.filter-expansion {
+    pointer-events: all;
+    margin: $margin;
+    background-color: rgba(white, 0.88);
+    ul {
+        list-style: none;
+    }
+}
+.checkbox-container {
+    margin-left: 0;
 }
