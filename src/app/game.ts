@@ -5,7 +5,7 @@ interface UserStats {
 }
 
 export interface Game {
-    appid: string;
+    appid: number;
     name: string;
     img_icon_url: string;
     img_logo_url: string;
@@ -19,7 +19,7 @@ export interface Category {
 }
 export interface GameDetails {
     name: string;
-    steam_appid: string;
+    steam_appid: number;
     is_free: boolean;
     detailed_description: string;
     short_description: string;

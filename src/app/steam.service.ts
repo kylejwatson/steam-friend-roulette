@@ -21,7 +21,7 @@ export class SteamService {
   private makeSharedGamesUrl(steamIds: string[]): string {
     return `${environment.serverUrl}/shared?steamids=${steamIds.join()}`;
   }
-  private makeGamesUrl(appIds: string[]): string {
+  private makeGamesUrl(appIds: number[]): string {
     return `${environment.serverUrl}/app?appids=${appIds.join()}`;
   }
   private makeGameImageUrls(game: Game): Game {
@@ -36,10 +36,10 @@ export class SteamService {
     const url = this.makeFriendsUrl(steamId);
     const friendsResponse = this.http.get<Friend[]>(url);
     friendsResponse.subscribe(friends => {
-      const gameIds: string[] = [];
+      const gameIds: number[] = [];
       this.friends = friends.map(friend => {
         if (friend.gameid) {
-          gameIds.push(friend.gameid);
+          gameIds.push(Number.parseInt(friend.gameid, 10));
         }
         const alreadyLoaded = this.friends.find(currentFriend => currentFriend.steamid === friend.steamid);
         return {
@@ -77,22 +77,29 @@ export class SteamService {
       return games.map(this.makeGameImageUrls);
     }));
   }
-  getGames(appIds: string[]): Observable<GameDetails[]> {
+  getGames(appIds: number[]): void {
     const ids = appIds.filter(id => !this.games.find(game => game.steam_appid === id));
-    if (ids.length) {
-      const url = this.makeGamesUrl(appIds);
-      const gamesResponse = this.http.get<GameDetails[]>(url);
-      gamesResponse.subscribe(games => {
-        this.games.push(...games);
-      });
-      return gamesResponse;
+    if (!ids.length) {
+      return;
     }
-    return new Observable(observer => {
-      observer.next(this.games);
-      observer.complete();
+    const url = this.makeGamesUrl(appIds);
+    const gamesResponse = this.http.get<(GameDetails | number)[]>(url);
+    gamesResponse.subscribe(games => {
+      const foundGames = games.filter(game => typeof game !== 'number') as GameDetails[];
+      const lostGames: number[] = [];
+      games.forEach((game, index) => {
+        if (typeof game === 'number') {
+          lostGames.push(ids[index]);
+        }
+      });
+      if (lostGames.length) {
+        console.info('404 - Could not find: ' + lostGames);
+      }
+
+      this.games.push(...foundGames);
     });
   }
-  getGameDetails(appId: string): GameDetails | undefined {
+  getGameDetails(appId: number): GameDetails | undefined {
     return this.games.find(game => game.steam_appid === appId);
   }
   gamesIncludeCategory(games: Game[], category: Category): boolean {

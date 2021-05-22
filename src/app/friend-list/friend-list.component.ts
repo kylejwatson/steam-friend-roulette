@@ -35,7 +35,7 @@ export class FriendListComponent implements OnInit {
 
   getGameDetails(friend: Friend): GameDetails | undefined {
     if (friend.gameid) {
-      return this.steamService.getGameDetails(friend.gameid);
+      return this.steamService.getGameDetails(Number.parseInt(friend.gameid, 10));
     }
     return undefined;
   }
