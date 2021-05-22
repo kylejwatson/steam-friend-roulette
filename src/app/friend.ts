@@ -10,4 +10,5 @@ export interface Friend {
     realname?: string;
     gameid?: string;
     selected?: boolean;
+    element?: Element;
 }

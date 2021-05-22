@@ -1,9 +1,29 @@
 <app-loading-overlay *ngIf="loading" (cancelEvent)="goBack()"></app-loading-overlay>
 <div class="buttons-container">
-    <button (click)="goBack()" mat-raised-button class="back-button">Back to Steam ID entry </button>
-    <button (click)="refresh()" mat-button class="back-button" color="accent">
-        <mat-icon class="refresh-icon">refresh</mat-icon> Refresh friends list
-    </button>
+</div>
+
+<div class="controls-container">
+    <div class="buttons-container">
+        <button (click)="goBack()" mat-raised-button class="back-button">Back to Steam ID entry </button>
+        <mat-form-field appearance="standard" class="search-input">
+            <mat-label>Search</mat-label>
+            <input type="text" matInput [matAutocomplete]="auto" [(ngModel)]="searchInput" (keyup.enter)="onSearch()"
+                #trigger="matAutocompleteTrigger" [formControl]="searchForm">
+            <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn" (optionSelected)="onSearch()">
+                <mat-option *ngFor="let friend of filteredFriends()" [value]="friend.personaname">
+                    {{friend.personaname}}
+                </mat-option>
+            </mat-autocomplete>
+            <mat-error>
+                Cannot find any friends with that name
+            </mat-error>
+        </mat-form-field>
+        <button (click)="onSearch()" mat-raised-button class="search-button">Search</button>
+
+        <button (click)="refresh()" mat-button class="back-button" color="accent">
+            <mat-icon class="refresh-icon">refresh</mat-icon> Refresh friends list
+        </button>
+    </div>
 </div>
 <div class="friend-selection">
     <div class="friend-list">

@@ -1,6 +1,6 @@
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -23,6 +23,8 @@ import { CookieModule } from 'ngx-cookie';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { CategoryListComponent } from './category-list/category-list.component';
+import { ErrorStateMatcher, ShowOnDirtyErrorStateMatcher } from '@angular/material/core';
+// import {MatHintModule} from '@angular/material/'
 
 @NgModule({
   declarations: [
@@ -39,6 +41,7 @@ import { CategoryListComponent } from './category-list/category-list.component';
     BrowserModule,
     AppRoutingModule,
     FormsModule,
+    ReactiveFormsModule,
     HttpClientModule,
     BrowserAnimationsModule,
     MatExpansionModule,
@@ -52,7 +55,11 @@ import { CategoryListComponent } from './category-list/category-list.component';
     MatAutocompleteModule,
     MatCheckboxModule
   ],
-  providers: [{ provide: Window, useValue: window }],
+  providers: [
+    { provide: Window, useValue: window },
+    { provide: Document, useValue: document },
+    { provide: ErrorStateMatcher, useClass: ShowOnDirtyErrorStateMatcher }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

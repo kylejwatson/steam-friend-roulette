@@ -9,7 +9,8 @@
     </mat-expansion-panel-header>
     <button [disabled]="!friends.length" (click)="selectAll()" mat-raised-button>Select All</button>
     <div class="friend-list" #listElement>
-        <mat-card *ngFor="let friend of friends" (click)="selectFriend(friend)" class="friend-card">
+        <mat-card *ngFor="let friend of friends" (click)="selectFriend(friend)" class="friend-card"
+            [id]="friend.steamid+'-card'">
             <mat-card-header>
                 <img mat-card-avatar [src]="friend.avatar" />
                 <mat-card-title>{{friend.personaname}}</mat-card-title>
