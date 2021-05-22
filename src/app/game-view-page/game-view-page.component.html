@@ -22,11 +22,7 @@
         </mat-panel-title>
     </mat-expansion-panel-header>
 
-    <div class="checkbox-container">
-        <mat-checkbox *ngFor="let category of getCategories(); let in=index" class="checkbox"
-            [disabled]="categoryDisabled(category)" [(ngModel)]="getCategories()[in].checked">
-            {{category.description}}
-        </mat-checkbox>
-    </div>
+    <app-category-list [categories]="getCategories()" [games]="searchedGames()" [first]="true">
+    </app-category-list>
 </mat-expansion-panel>
 <app-game-list [games]="filteredGames()"></app-game-list>

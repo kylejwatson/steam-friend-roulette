@@ -95,4 +95,12 @@ export class SteamService {
   getGameDetails(appId: string): GameDetails | undefined {
     return this.games.find(game => game.steam_appid === appId);
   }
+  gamesIncludeCategory(games: Game[], category: Category): boolean {
+    return games.some(game => {
+      const details = this.getGameDetails(game.appid);
+      return details?.categories.find(findCategory => {
+        return findCategory.id === category.id;
+      });
+    });
+  }
 }

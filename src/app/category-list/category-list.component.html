@@ -1,0 +1,10 @@
+<ul class="checkbox-container" [class.first]="first">
+    <li *ngFor="let category of categories">
+        <mat-checkbox class="checkbox" [disabled]="categoryDisabled(category)" [(ngModel)]="category.checked"
+            [indeterminate]="someChecked(category)" (change)="setAll(category, $event.checked)">
+            {{category.description}}
+        </mat-checkbox>
+        <app-category-list *ngIf="category.subcategories" [categories]="category.subcategories" [games]="games">
+        </app-category-list>
+    </li>
+</ul>

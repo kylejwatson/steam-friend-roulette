@@ -22,6 +22,7 @@ import { LoadingOverlayComponent } from './loading-overlay/loading-overlay.compo
 import { CookieModule } from 'ngx-cookie';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { CategoryListComponent } from './category-list/category-list.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
     SteamIdPageComponent,
     FriendSelectPageComponent,
     GameViewPageComponent,
-    LoadingOverlayComponent
+    LoadingOverlayComponent,
+    CategoryListComponent
   ],
   imports: [
     BrowserModule,

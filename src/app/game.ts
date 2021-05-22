@@ -14,7 +14,8 @@ export interface Game {
 export interface Category {
     id: number;
     description: string;
-    checked: boolean;
+    checked?: boolean;
+    subcategories?: Category[];
 }
 export interface GameDetails {
     name: string;
@@ -36,41 +37,48 @@ export const categories: Category[] = [
     {
         id: 1,
         description: 'Multi-player',
-        checked: true
-    },
-    {
-        id: 49,
-        description: 'PvP',
-        checked: true
-    },
-    {
-        id: 36,
-        description: 'Online PvP',
-        checked: true
-    },
-    {
-        id: 47,
-        description: 'LAN PvP',
-        checked: true
-    },
-    {
-        id: 9,
-        description: 'Co-op',
-        checked: true
-    },
-    {
-        id: 38,
-        description: 'Online Co-op',
-        checked: true
-    },
-    {
-        id: 48,
-        description: 'LAN Co-op',
-        checked: true
-    },
-    {
-        id: 20,
-        description: 'MMO',
-        checked: true
+        checked: true,
+        subcategories: [
+            {
+                id: 49,
+                description: 'PvP',
+                checked: true,
+                subcategories: [
+                    {
+                        id: 36,
+                        description: 'Online PvP',
+                        checked: true
+                    },
+                    {
+                        id: 47,
+                        description: 'LAN PvP',
+                        checked: true
+                    }
+                ]
+            },
+            {
+                id: 9,
+                description: 'Co-op',
+                checked: true,
+                subcategories: [
+                    {
+                        id: 38,
+                        description: 'Online Co-op',
+                        checked: true
+                    },
+                    {
+                        id: 48,
+                        description: 'LAN Co-op',
+                        checked: true
+                    }
+
+                ]
+            },
+            {
+                id: 20,
+                description: 'MMO',
+                checked: true
+            }
+        ]
     }
 ];

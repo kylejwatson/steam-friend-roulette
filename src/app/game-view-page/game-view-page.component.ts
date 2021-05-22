@@ -75,12 +75,22 @@ export class GameViewPageComponent extends SteamIdParam implements OnInit {
     }
     return this.games.filter(game => game.name.toLowerCase().includes(this.currentSearch.toLowerCase()));
   }
+  enabledCategories(categoryList: Category[]): Category[] {
+    const enabled: Category[] = [];
+    categoryList.forEach(category => {
+      if (category.checked) {
+        enabled.push(category);
+      }
+      if (category.subcategories) {
+        const subEnabled = this.enabledCategories(category.subcategories);
+        enabled.push(...subEnabled);
+      }
+    });
+    return enabled;
+  }
   filteredGames(): Game[] {
-    const enabledCategories = categories.filter(category => category.checked);
     const searched = this.searchedGames();
-    if (enabledCategories.length === categories.length) {
-      return searched;
-    }
+    const enabledCategories = this.enabledCategories(categories);
     const games = searched.filter(game => {
       const details = this.steamService.getGameDetails(game.appid);
       return details?.categories.some(category => {
@@ -90,21 +100,8 @@ export class GameViewPageComponent extends SteamIdParam implements OnInit {
 
     return games;
   }
-  gamesIncludeCategory(games: Game[], category: Category): boolean {
-    return games.some(game => {
-      const details = this.steamService.getGameDetails(game.appid);
-      return details?.categories.find(findCategory => {
-        return findCategory.id === category.id;
-      });
-    });
-  }
+
   getCategories(): Category[] {
-    return categories.filter(category => this.gamesIncludeCategory(this.games, category));
-  }
-  categoryDisabled(category: Category): boolean {
-    if (!this.currentSearch) {
-      return false;
-    }
-    return !this.gamesIncludeCategory(this.searchedGames(), category);
+    return categories.filter(category => this.steamService.gamesIncludeCategory(this.games, category));
   }
 }
