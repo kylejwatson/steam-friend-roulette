@@ -1,6 +1,7 @@
 @import '../../variables.scss';
 
 .friend-selection {
+    margin-top: 96px;
     display: flex;
     width: 100%;
 }
@@ -8,9 +9,20 @@
 .friend-list {
     flex-grow: 1;
 }
-
+.games-button-container{
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;
+}
 .games-button {
-    margin: 0 $margin;
+    margin-bottom: 32px;
+    padding: 8px;
+    &:disabled {
+        background-color: rgb(224.4,224.4,224.4);
+    }
 }
 .buttons-container {
     display: flex;
@@ -28,4 +40,18 @@
 .search-input {
     margin-left: 64px;
     flex-grow: 1;
+}
+.scroll-button {
+    position: fixed;
+    bottom: $margin;
+    right: $margin;
+}
+.controls-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    padding: $margin;
+    background-color: rgba(white, 0.88);
+    z-index: 1;
 }

@@ -33,7 +33,8 @@ export class FriendSelectPageComponent extends SteamIdParam implements OnInit {
     cookie: CookieService,
     location: Location,
     public steamService: SteamService,
-    private document: Document
+    private document: Document,
+    private window: Window
   ) { super(router, route, cookie, location); }
 
   ngOnInit(): void {
@@ -81,5 +82,12 @@ export class FriendSelectPageComponent extends SteamIdParam implements OnInit {
       return found;
     }
     return undefined;
+  }
+
+  scrollToTop(): void {
+    this.window.scroll({
+      top: 0,
+      behavior: 'smooth'
+    });
   }
 }

@@ -1,6 +1,4 @@
 <app-loading-overlay *ngIf="loading" (cancelEvent)="goBack()"></app-loading-overlay>
-<div class="buttons-container">
-</div>
 
 <div class="controls-container">
     <div class="buttons-container">
@@ -30,8 +28,6 @@
         <app-friend-list [friends]="steamService.selectedFriends()"
             (selectedFriendEvent)="steamService.toggleFriend($event)" title="Selected">
         </app-friend-list>
-        <button (click)="getGames()" mat-raised-button class="games-button"
-            [disabled]="steamService.selectedFriends().length === 0">Get shared games</button>
     </div>
     <div class="friend-list">
         <app-friend-list [friends]="steamService.onlineFriends()"
@@ -42,3 +38,12 @@
         </app-friend-list>
     </div>
 </div>
+<div class="games-button-container">
+    <button (click)="getGames()" mat-raised-button class="games-button"
+        [disabled]="steamService.selectedFriends().length === 0" color="accent">Get shared games
+        <mat-icon>sports_esports</mat-icon>
+    </button>
+</div>
+<button mat-fab aria-label="Scroll back to the top of the list" class="scroll-button" (click)="scrollToTop()">
+    <mat-icon>arrow_upward</mat-icon>
+</button>
