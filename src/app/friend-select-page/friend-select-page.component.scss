@@ -56,23 +56,28 @@
     z-index: 1;
 }
 .filter-container {
-    position: fixed;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    display: flex;
-    align-items: center;
     z-index: 1;
-    pointer-events: none;
+    position: fixed;
+    top: 166px;
+    right: $margin;
 }
 .filter-expansion {
-    pointer-events: all;
-    margin: $margin;
+   margin-bottom: $margin;
     background-color: rgba(white, 0.88);
     ul {
         list-style: none;
     }
 }
 .checkbox-container {
-    margin-left: 0;
+    padding: 0;
+    margin: 0;
+}
+.sort-list {
+    display: flex;
+    flex-direction: column;
+}
+.sort-toggle{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }

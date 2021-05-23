@@ -11,4 +11,6 @@ export interface Friend {
     gameid?: string;
     selected?: boolean;
     element?: Element;
+    lastlogoff: number;
+    friend_since: number;
 }

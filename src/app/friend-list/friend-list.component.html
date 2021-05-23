@@ -1,26 +1,22 @@
-<mat-expansion-panel class="friend-expansion" [expanded]="friends.length > 0">
-    <mat-expansion-panel-header>
-        <mat-panel-title>
-            {{title}}
-        </mat-panel-title>
-        <mat-panel-description>
-            ({{friends.length}})
-        </mat-panel-description>
-    </mat-expansion-panel-header>
+<div class="list-header">
+    <h2>{{title}} ({{friends.length}})</h2>
     <button [disabled]="!friends.length" (click)="selectAll()" mat-raised-button>Select All</button>
-    <div class="friend-list" #listElement>
-        <mat-card *ngFor="let friend of friends" (click)="selectFriend(friend)" class="friend-card"
-            [id]="friend.steamid+'-card'">
-            <mat-card-header>
-                <img mat-card-avatar [src]="friend.avatar" />
-                <mat-card-title>{{friend.personaname}}</mat-card-title>
-                <mat-card-subtitle>{{friend.realname}}</mat-card-subtitle>
-            </mat-card-header>
-            <div *ngIf="friend.gameid" class="game-status">
-                <span>Currently in game</span><span *ngIf="getGameDetails(friend)">:
-                    {{getGameDetails(friend)?.name}}</span>
-                <!-- add in game name/details later (maybe after caching game details on server) -->
-            </div>
-        </mat-card>
-    </div>
-</mat-expansion-panel>
+</div>
+<div class="friend-list">
+    <mat-card *ngFor="let friend of friends" (click)="selectFriend(friend)" class="friend-card"
+        [id]="friend.steamid+'-card'">
+        <mat-card-header>
+            <img mat-card-avatar [src]="friend.avatar" />
+            <mat-card-title>{{friend.personaname}}</mat-card-title>
+            <mat-card-subtitle>{{friend.realname}}</mat-card-subtitle>
+        </mat-card-header>
+        <div *ngIf="friend.gameid" class="game-status">
+            <span>Currently in game</span><span *ngIf="getGameDetails(friend)">:
+                {{getGameDetails(friend)?.name}}</span>
+            <!-- add in game name/details later (maybe after caching game details on server) -->
+        </div>
+        <div class="logged-off">
+            Last logged off: {{lastLoggedOff(friend)}}
+        </div>
+    </mat-card>
+</div>

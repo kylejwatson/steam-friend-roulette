@@ -39,5 +39,16 @@ export class FriendListComponent implements OnInit {
     }
     return undefined;
   }
-
+  dateString(unix: number): string {
+    return new Date(unix * 1000).toString();
+  }
+  lastLoggedOff(friend: Friend): string {
+    const date = new Date(friend.lastlogoff * 1000);
+    const dateString = date.toDateString();
+    const timeString = date.toTimeString().split(' ').shift();
+    if (dateString === new Date().toDateString()) {
+      return `Today ${timeString}`;
+    }
+    return `${dateString} ${timeString}`;
+  }
 }

@@ -19,6 +19,10 @@ export class FriendSelectPageComponent extends SteamIdParam implements OnInit {
   onlineFilter = true;
   inGameFilter = true;
   offlineFilter = true;
+  loggedoff = 0;
+  alphabetical = -1;
+  since = 0;
+
   @ViewChild(MatAutocompleteTrigger) autocompleteTrigger?: MatAutocompleteTrigger;
   searchForm = new FormControl('', () => {
     if (!this.searchInput) {
@@ -101,11 +105,69 @@ export class FriendSelectPageComponent extends SteamIdParam implements OnInit {
     // This logic needs to be fixed
   }
   filteredFriends(friends: Friend[]): Friend[] {
-    return friends.filter(friend => {
+    const filtered = friends.filter(friend => {
       const online = this.onlineFilter && (friend.personastate === 1 || friend.gameid);
       const inGame = this.inGameFilter && friend.gameid;
       const offline = this.offlineFilter && friend.personastate !== 1 && !friend.gameid;
       return online || inGame || offline;
+    });
+    return this.orderFriends(filtered);
+  }
+  toggleAlphabetical(): void {
+    if (this.alphabetical === 0) {
+      this.since = 0;
+      this.loggedoff = 0;
+      this.alphabetical = 1;
+    } else {
+      this.alphabetical = -this.alphabetical;
+    }
+  }
+  toggleLoggedOff(): void {
+    if (this.loggedoff === 0) {
+      this.since = 0;
+      this.alphabetical = 0;
+      this.loggedoff = 1;
+    } else {
+      this.loggedoff = -this.loggedoff;
+    }
+  }
+  toggleFriendSince(): void {
+    if (this.since === 0) {
+      this.alphabetical = 0;
+      this.loggedoff = 0;
+      this.since = 1;
+    } else {
+      this.since = -this.since;
+    }
+  }
+  orderFriends(friends: Friend[]): Friend[] {
+    return friends.sort((friendA, friendB) => {
+      if (this.loggedoff !== 0) {
+        if (!friendA.lastlogoff) {
+          return friendB.lastlogoff ? 1 : 0;
+        }
+        if (!friendB.lastlogoff) {
+          return 0;
+        }
+        return this.loggedoff === 1 ? friendA.lastlogoff - friendB.lastlogoff : friendB.lastlogoff - friendA.lastlogoff;
+      }
+      if (this.since !== 0) {
+        if (!friendA.friend_since) {
+          return friendB.friend_since ? 1 : 0;
+        }
+        if (!friendB.friend_since) {
+          return 0;
+        }
+        return this.since === 1 ? friendA.friend_since - friendB.friend_since : friendB.friend_since - friendA.friend_since;
+      }
+      if (friendA.personaname.toLowerCase() < friendB.personaname.toLowerCase()) {
+        return this.alphabetical;
+      }
+      if (friendA.personaname.toLowerCase() > friendB.personaname.toLowerCase()) {
+        return -this.alphabetical;
+      }
+
+      return 0;
     });
   }
 }

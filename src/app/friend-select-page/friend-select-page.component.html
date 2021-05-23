@@ -54,6 +54,36 @@
             </li>
         </ul>
     </mat-expansion-panel>
+    <mat-expansion-panel class="filter-expansion" [expanded]="true">
+        <mat-expansion-panel-header>
+            <mat-panel-title>
+                Sort
+            </mat-panel-title>
+        </mat-expansion-panel-header>
+        <div class="sort-list">
+            <button mat-flat-button (click)="toggleAlphabetical()" [color]="alphabetical !== 0 ? 'accent' : ''">
+                <span class="sort-toggle">Alphabetical
+                    <mat-icon *ngIf="alphabetical === 0">unfold_more</mat-icon>
+                    <mat-icon *ngIf="alphabetical === -1">arrow_drop_down</mat-icon>
+                    <mat-icon *ngIf="alphabetical === 1">arrow_drop_up</mat-icon>
+                </span>
+            </button>
+            <button mat-flat-button (click)="toggleLoggedOff()" [color]="loggedoff !== 0 ? 'accent' : ''">
+                <span class="sort-toggle">Last logged off
+                    <mat-icon *ngIf="loggedoff === 0">unfold_more</mat-icon>
+                    <mat-icon *ngIf="loggedoff === -1">arrow_drop_down</mat-icon>
+                    <mat-icon *ngIf="loggedoff === 1">arrow_drop_up</mat-icon>
+                </span>
+            </button>
+            <button mat-flat-button (click)="toggleFriendSince()" [color]="since !== 0 ? 'accent' : ''">
+                <span class="sort-toggle">Date added
+                    <mat-icon *ngIf="since === 0">unfold_more</mat-icon>
+                    <mat-icon *ngIf="since === -1">arrow_drop_down</mat-icon>
+                    <mat-icon *ngIf="since === 1">arrow_drop_up</mat-icon>
+                </span>
+            </button>
+        </div>
+    </mat-expansion-panel>
 </div>
 <div class="friend-selection">
     <div class="friend-list">

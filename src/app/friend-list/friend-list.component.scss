@@ -2,12 +2,17 @@
 @import '~@angular/material/theming';
 @import '../../variables.scss';
 
-.friend-expansion {
+.list-header{
     margin: $margin;
+    display: flex;
+    justify-content: space-between;
+    h2 {
+        margin: 0;
+    }
 }
 
 .friend-card {
-    margin: $margin;
+    margin: $margin 0;
     cursor: pointer;
     transition: ease 0.2s;
     &:hover {
@@ -18,5 +23,8 @@
     margin: $margin;
 }
 .game-status {
+    margin: $margin;
+}
+.logged-off {
     margin: $margin;
 }
