@@ -4,6 +4,8 @@ import { environment } from 'src/environments/environment';
 import { SteamIdParam } from '../steam-id-param';
 import { CookieService } from 'ngx-cookie';
 import { Location } from '@angular/common';
+import { MatDialog } from '@angular/material/dialog';
+import { InfoDialogComponent } from '../info-dialog/info-dialog.component';
 
 @Component({
   selector: 'app-steam-id-page',
@@ -17,7 +19,8 @@ export class SteamIdPageComponent extends SteamIdParam implements OnInit {
     router: Router,
     route: ActivatedRoute,
     cookie: CookieService,
-    location: Location
+    location: Location,
+    private dialog: MatDialog
   ) { super(router, route, cookie, location); }
 
   ngOnInit(): void {
@@ -27,5 +30,9 @@ export class SteamIdPageComponent extends SteamIdParam implements OnInit {
   getFriends(): void {
     this.cookie.put('steamid', this.steamId);
     this.router.navigate(['/friend-select'], { queryParams: { id: this.steamId } });
+  }
+
+  openDialog(): void {
+    this.dialog.open(InfoDialogComponent);
   }
 }

@@ -24,7 +24,8 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { CategoryListComponent } from './category-list/category-list.component';
 import { ErrorStateMatcher, ShowOnDirtyErrorStateMatcher } from '@angular/material/core';
-// import {MatHintModule} from '@angular/material/'
+import { InfoDialogComponent } from './info-dialog/info-dialog.component';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { ErrorStateMatcher, ShowOnDirtyErrorStateMatcher } from '@angular/materi
     FriendSelectPageComponent,
     GameViewPageComponent,
     LoadingOverlayComponent,
-    CategoryListComponent
+    CategoryListComponent,
+    InfoDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -53,7 +55,8 @@ import { ErrorStateMatcher, ShowOnDirtyErrorStateMatcher } from '@angular/materi
     MatProgressSpinnerModule,
     CookieModule.forRoot(),
     MatAutocompleteModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    MatDialogModule
   ],
   providers: [
     { provide: Window, useValue: window },
