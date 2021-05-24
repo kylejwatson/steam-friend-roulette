@@ -1,7 +1,6 @@
 @import '../../variables.scss';
 
 .friend-selection {
-    margin-top: 96px;
     display: flex;
     width: 100%;
 }
@@ -53,16 +52,23 @@
     right: 0;
     padding: $margin;
     background-color: rgba(white, 0.88);
-    z-index: 1;
+    z-index: 2;
 }
 .filter-container {
-    z-index: 1;
-    position: fixed;
-    top: 166px;
-    right: $margin;
+    display: flex;
+    padding: $margin;
+    margin-top: 105px;
+    align-items: center;    
+    min-height: 48px;
+    h2 {
+        margin: 0;
+    }
 }
 .filter-expansion {
-   margin-bottom: $margin;
+    position: absolute;
+    right: $margin;
+    top: 121px;
+    z-index: 1;
     background-color: rgba(white, 0.88);
     ul {
         list-style: none;
@@ -74,7 +80,9 @@
 }
 .sort-list {
     display: flex;
-    flex-direction: column;
+    margin: 0 $margin;
+    flex-grow: 1;
+    justify-content: center;
 }
 .sort-toggle{
     display: flex;
