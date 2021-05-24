@@ -1,6 +1,7 @@
 import { ActivatedRoute, Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie';
 import { Location } from '@angular/common';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 export class SteamIdParam {
     steamId = '';
@@ -9,7 +10,8 @@ export class SteamIdParam {
         protected router: Router,
         protected route: ActivatedRoute,
         protected cookie: CookieService,
-        protected location: Location
+        protected location: Location,
+        protected snackBar: MatSnackBar
     ) { }
 
     getSteamId(finished?: () => void, notFound?: () => void): void {
@@ -27,6 +29,10 @@ export class SteamIdParam {
             if (finished && this.steamId) {
                 finished();
             } else if (notFound && !this.steamId) {
+                this.snackBar.open('Please enter your Steam ID first', 'Close', {
+                    duration: 3000,
+                    verticalPosition: 'top'
+                });
                 notFound();
             }
         });

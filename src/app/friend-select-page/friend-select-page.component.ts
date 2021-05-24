@@ -7,6 +7,7 @@ import { Location } from '@angular/common';
 import { Friend } from '../friend';
 import { MatAutocompleteTrigger } from '@angular/material/autocomplete';
 import { FormControl } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-friend-select-page',
@@ -41,8 +42,9 @@ export class FriendSelectPageComponent extends SteamIdParam implements OnInit {
     location: Location,
     public steamService: SteamService,
     private document: Document,
-    private window: Window
-  ) { super(router, route, cookie, location); }
+    private window: Window,
+    snackBar: MatSnackBar
+  ) { super(router, route, cookie, location, snackBar); }
 
   ngOnInit(): void {
     this.getSteamId(
@@ -53,7 +55,15 @@ export class FriendSelectPageComponent extends SteamIdParam implements OnInit {
 
   getFriends(): void {
     this.loading = true;
-    this.steamService.getFriends(this.steamId).subscribe(() => this.loading = false);
+    this.steamService.getFriends(this.steamId).subscribe(() => {
+      this.loading = false;
+      if (this.steamService.friends.length === 0) {
+        this.snackBar.open('No friends were found', 'Close', {
+          duration: 3000,
+          verticalPosition: 'top'
+        });
+      }
+    }, () => this.goBack());
   }
 
   getGames(): void {

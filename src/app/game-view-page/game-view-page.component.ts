@@ -6,6 +6,7 @@ import { SteamIdParam } from '../steam-id-param';
 import { SteamService } from '../steam.service';
 import { Location } from '@angular/common';
 import { MatAutocompleteTrigger } from '@angular/material/autocomplete';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-game-view-page',
@@ -26,8 +27,9 @@ export class GameViewPageComponent extends SteamIdParam implements OnInit {
     route: ActivatedRoute,
     cookie: CookieService,
     location: Location,
-    private steamService: SteamService
-  ) { super(router, route, cookie, location); }
+    private steamService: SteamService,
+    snackBar: MatSnackBar
+  ) { super(router, route, cookie, location, snackBar); }
 
   ngOnInit(): void {
     this.getSteamId(
@@ -38,6 +40,10 @@ export class GameViewPageComponent extends SteamIdParam implements OnInit {
 
   getSelectedFriends(): void {
     if (this.steamService.selectedFriends().length === 0) {
+      this.snackBar.open('Please select friends from your friends list first', 'Close', {
+        duration: 3000,
+        verticalPosition: 'top'
+      });
       this.router.navigate(['/friend-select'], { queryParams: { id: this.steamId } });
       return;
     }
@@ -50,8 +56,14 @@ export class GameViewPageComponent extends SteamIdParam implements OnInit {
     steamIds.unshift(this.steamId);
     this.steamService.getSharedGames(steamIds).subscribe(games => {
       this.games = games;
+      if (games.length === 0) {
+        this.snackBar.open('No games in common found between you and the friends you selected, try selecting less friends', 'Close', {
+          duration: 5000,
+          verticalPosition: 'top'
+        });
+      }
       this.loading = false;
-    });
+    }, () => this.goBack());
   }
 
   goBack(): void {
@@ -93,11 +105,13 @@ export class GameViewPageComponent extends SteamIdParam implements OnInit {
     const enabledCategories = this.enabledCategories(categories);
     const games = searched.filter(game => {
       const details = this.steamService.getGameDetails(game.appid);
-      return details?.categories.some(category => {
+      if (!details) {
+        return true;
+      }
+      return details.categories.some(category => {
         return enabledCategories.find(enabled => enabled.id === category.id);
       });
     });
-
     return games;
   }
 

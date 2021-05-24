@@ -6,6 +6,7 @@ import { CookieService } from 'ngx-cookie';
 import { Location } from '@angular/common';
 import { MatDialog } from '@angular/material/dialog';
 import { InfoDialogComponent } from '../info-dialog/info-dialog.component';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-steam-id-page',
@@ -20,8 +21,9 @@ export class SteamIdPageComponent extends SteamIdParam implements OnInit {
     route: ActivatedRoute,
     cookie: CookieService,
     location: Location,
-    private dialog: MatDialog
-  ) { super(router, route, cookie, location); }
+    private dialog: MatDialog,
+    snackBar: MatSnackBar
+  ) { super(router, route, cookie, location, snackBar); }
 
   ngOnInit(): void {
     this.getSteamId();
