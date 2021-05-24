@@ -1,4 +1,6 @@
+@use 'sass:map';
 @import '../../variables.scss';
+@import '~@angular/material/theming';
 
 .header-title{
     margin: 96px $margin $margin $margin;
@@ -22,7 +24,20 @@
 .card-content {
     display: flex;
     margin: $margin 0;
-    p, img {
+    div, img {
         flex-grow: 1;
     }
+}
+.time-stats{
+    td,th {
+        padding: 4px;
+    }
+}
+.two-week-header {
+    p {
+        margin: 0;
+    }
+}
+.highlight { 
+    color: map.get($mat-pink, 500);
 }

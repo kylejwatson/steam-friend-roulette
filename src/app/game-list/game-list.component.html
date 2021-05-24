@@ -7,9 +7,40 @@
             <!-- <mat-card-subtitle>{{game.realname}}</mat-card-subtitle> -->
         </mat-card-header>
         <div class="card-content">
-            <p class="card-text">
-                {{convertGameTime(game.userStats[0].playtime_forever)}}
-            </p>
+            <div class="time-stats">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>
+                                <div class="time-header">
+                                    <mat-icon>person</mat-icon>
+                                    <p> (Player)</p>
+                                </div>
+                            </th>
+                            <th>
+                                <div class="time-header">
+                                    <mat-icon>schedule</mat-icon>
+                                    <p> (2 weeks)</p>
+                                </div>
+                            </th>
+                            <th>
+                                <div class="time-header">
+                                    <mat-icon>date_range</mat-icon>
+                                    <p> (All time)</p>
+                                </div>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let userStat of game.userStats">
+                            <th [class.highlight]="isUser(userStat)">{{getName(userStat)}}</th>
+                            <td [class.highlight]="userStat.playtime_2weeks">
+                                {{convertGameTime(userStat.playtime_2weeks)}}</td>
+                            <td>{{convertGameTime(userStat.playtime_forever)}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
             <img [src]="getCoverImage(game)" class="cover-image" />
         </div>
     </mat-card>

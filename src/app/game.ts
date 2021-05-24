@@ -1,5 +1,5 @@
-interface UserStats {
-    steamid: string;
+export interface UserStats {
+    steamId: string;
     playtime_forever: number;
     playtime_2weeks: number;
 }
