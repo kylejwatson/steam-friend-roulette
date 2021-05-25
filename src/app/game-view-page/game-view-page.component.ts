@@ -22,8 +22,8 @@ export class GameViewPageComponent extends SteamIdParam implements OnInit {
   games: Game[] = [];
   loading = true;
   alphabetical = 0;
-  twoWeeks = 1;
-  allTime = 0;
+  twoWeeks = 0;
+  allTime = -1;
   orderUser = '';
 
   @ViewChild(MatAutocompleteTrigger) autocompleteTrigger?: MatAutocompleteTrigger;

@@ -52,7 +52,7 @@
             </span>
         </button>
     </div>
-    <mat-form-field appearance="fill" class="order-user">
+    <mat-form-field appearance="fill">
         <mat-label>Filters</mat-label>
         <mat-select multiple (selectionChange)="filtersChanged($event)" [ngModel]="[1,2]">
             <mat-option *ngFor="let category of getCategories()" [value]="category.id">

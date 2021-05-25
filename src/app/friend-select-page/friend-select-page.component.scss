@@ -2,7 +2,7 @@
 
 .friend-selection {
     display: flex;
-    width: 100%;
+    margin: 0 $margin;
 }
 
 .friend-list {
@@ -56,19 +56,14 @@
 }
 .filter-container {
     display: flex;
-    padding: $margin;
-    margin-top: 105px;
-    align-items: center;
-    min-height: 48px;
+    padding: $margin $margin 0;
+    margin: 105px 16px 0;
+    align-items: flex-start;
     h2 {
         margin: 0;
     }
 }
 .filter-expansion {
-    position: absolute;
-    right: $margin;
-    top: 121px;
-    z-index: 1;
     background-color: rgba(white, 0.88);
     ul {
         list-style: none;

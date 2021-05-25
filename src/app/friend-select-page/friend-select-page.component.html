@@ -48,7 +48,21 @@
             </span>
         </button>
     </div>
-    <mat-expansion-panel class="filter-expansion" [expanded]="false">
+    <mat-form-field appearance="fill" class="order-user">
+        <mat-label>Filters</mat-label>
+        <mat-select multiple [(ngModel)]="filters">
+            <mat-option [value]="1" [disabled]="!steamService.onlineFriends().length" name="online">
+                Online
+            </mat-option>
+            <mat-option [value]="2" [disabled]="!steamService.inGameFriends().length" name="ingame">
+                In-game
+            </mat-option>
+            <mat-option [value]="3" [disabled]="!steamService.otherFriends().length" name="offline">
+                Offline
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+    <!-- <mat-expansion-panel class="filter-expansion" [expanded]="false">
         <mat-expansion-panel-header>
             <mat-panel-title>
                 Filters
@@ -77,7 +91,7 @@
                 </mat-checkbox>
             </li>
         </ul>
-    </mat-expansion-panel>
+    </mat-expansion-panel> -->
 </div>
 <div class="friend-selection">
     <div class="friend-list">

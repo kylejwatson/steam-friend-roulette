@@ -9,6 +9,11 @@ import { MatAutocompleteTrigger } from '@angular/material/autocomplete';
 import { FormControl } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
+enum Filter {
+  Online = 1,
+  InGame,
+  Offline
+}
 @Component({
   selector: 'app-friend-select-page',
   templateUrl: './friend-select-page.component.html',
@@ -17,9 +22,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class FriendSelectPageComponent extends SteamIdParam implements OnInit {
   loading = true;
   searchInput = '';
-  onlineFilter = true;
-  inGameFilter = true;
-  offlineFilter = true;
+  filters = [Filter.Online, Filter.InGame, Filter.Offline];
   loggedoff = 0;
   alphabetical = -1;
   since = 0;
@@ -110,15 +113,11 @@ export class FriendSelectPageComponent extends SteamIdParam implements OnInit {
   filterSelected(friends: Friend[]): Friend[] {
     return this.filteredFriends(friends.filter(friend => !friend.selected));
   }
-  setOnline(checked: boolean): void {
-    this.inGameFilter = checked;
-    // This logic needs to be fixed
-  }
   filteredFriends(friends: Friend[]): Friend[] {
     const filtered = friends.filter(friend => {
-      const online = this.onlineFilter && (friend.personastate === 1 || friend.gameid);
-      const inGame = this.inGameFilter && friend.gameid;
-      const offline = this.offlineFilter && friend.personastate !== 1 && !friend.gameid;
+      const online = this.filters.includes(Filter.Online) && friend.personastate === 1 && !friend.gameid;
+      const inGame = this.filters.includes(Filter.InGame) && friend.gameid;
+      const offline = this.filters.includes(Filter.Offline) && friend.personastate !== 1 && !friend.gameid;
       return online || inGame || offline;
     });
     return this.orderFriends(filtered);
