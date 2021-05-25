@@ -7,6 +7,7 @@ import { SteamService } from '../steam.service';
 import { Location } from '@angular/common';
 import { MatAutocompleteTrigger } from '@angular/material/autocomplete';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Friend } from '../friend';
 
 @Component({
   selector: 'app-game-view-page',
@@ -19,6 +20,10 @@ export class GameViewPageComponent extends SteamIdParam implements OnInit {
   currentSearch = '';
   games: Game[] = [];
   loading = true;
+  alphabetical = 0;
+  twoWeeks = 1;
+  allTime = 0;
+  orderUser = '';
 
   @ViewChild(MatAutocompleteTrigger) autocompleteTrigger?: MatAutocompleteTrigger;
 
@@ -47,7 +52,12 @@ export class GameViewPageComponent extends SteamIdParam implements OnInit {
       this.router.navigate(['/friend-select'], { queryParams: { id: this.steamId } });
       return;
     }
+    this.orderUser = this.steamId;
     this.getGames();
+  }
+
+  selectedFriends(): Friend[] {
+    return this.steamService.selectedFriends();
   }
 
   getGames(): void {
@@ -112,10 +122,69 @@ export class GameViewPageComponent extends SteamIdParam implements OnInit {
         return enabledCategories.find(enabled => enabled.id === category.id);
       });
     });
-    return games;
+    return this.orderGames(games);
   }
 
   getCategories(): Category[] {
     return categories.filter(category => this.steamService.gamesIncludeCategory(this.games, category));
+  }
+
+  toggleAlphabetical(): void {
+    if (this.alphabetical === 0) {
+      this.allTime = 0;
+      this.twoWeeks = 0;
+      this.alphabetical = 1;
+    } else {
+      this.alphabetical = -this.alphabetical;
+    }
+  }
+  toggleTwoWeeks(): void {
+    if (this.twoWeeks === 0) {
+      this.allTime = 0;
+      this.alphabetical = 0;
+      this.twoWeeks = 1;
+    } else {
+      this.twoWeeks = -this.twoWeeks;
+    }
+  }
+  toggleAllTime(): void {
+    if (this.allTime === 0) {
+      this.alphabetical = 0;
+      this.twoWeeks = 0;
+      this.allTime = 1;
+    } else {
+      this.allTime = -this.allTime;
+    }
+  }
+
+  orderGames(games: Game[]): Game[] {
+    const orderId = this.orderUser || this.steamId;
+    return games.sort((gameA, gameB) => {
+      const userStatsA = gameA.userStats.find(user => user.steamId === orderId);
+      const userStatsB = gameB.userStats.find(user => user.steamId === orderId);
+      if (this.twoWeeks !== 0) {
+        const twoWeeksA = userStatsA?.playtime_2weeks || 0;
+        const twoWeeksB = userStatsB?.playtime_2weeks || 0;
+        return this.twoWeeks === 1 ?
+          twoWeeksA - twoWeeksB :
+          twoWeeksB - twoWeeksA;
+      }
+      if (this.allTime !== 0) {
+        const allTimeA = userStatsA?.playtime_2weeks || 0;
+        const allTimeB = userStatsB?.playtime_forever || 0;
+        return this.allTime === 1 ?
+          allTimeA - allTimeB :
+          allTimeB - allTimeA;
+      }
+
+      if (gameA.name.toLowerCase() < gameB.name.toLowerCase()) {
+        return this.alphabetical;
+      }
+      if (gameA.name.toLowerCase() > gameB.name.toLowerCase()) {
+        return -this.alphabetical;
+      }
+
+      return 0;
+    });
   }
 }

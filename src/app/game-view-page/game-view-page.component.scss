@@ -7,7 +7,7 @@
     right: 0;
     padding: $margin;
     background-color: rgba(white, 0.88);
-    z-index: 1;
+    z-index: 2;
 }
 .buttons-container {
     display: flex;
@@ -23,11 +23,37 @@
     margin-left: 64px;
     flex-grow: 1;
 }
+.filter-container {
+    display: flex;
+    padding: $margin $margin 0;
+    margin-top: 105px;
+    align-items: start;
+    h2 {
+        margin: 0;
+    }
+}
 .filter-expansion {
-    position: fixed;
-    top: 96px;
-    right: 0;
-    margin: $margin;
     background-color: rgba(white, 0.88);
-    z-index: 1;
+    ul {
+        list-style: none;
+    }
+}
+.checkbox-container {
+    padding: 0;
+    margin: 0;
+}
+.sort-list {
+    display: flex;
+    margin: 0 $margin;
+    flex-grow: 1;
+    justify-content: center;
+    align-items: start;
+}
+.sort-toggle{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.order-user{
+    margin: 0 $margin;
 }

@@ -28,6 +28,7 @@ import { InfoDialogComponent } from './info-dialog/info-dialog.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { ErrorToastInterceptor } from './error-toast.interceptor';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatSelectModule } from '@angular/material/select';
 
 @NgModule({
   declarations: [
@@ -59,7 +60,8 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     MatAutocompleteModule,
     MatCheckboxModule,
     MatDialogModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatSelectModule
   ],
   providers: [
     { provide: Window, useValue: window },

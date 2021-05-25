@@ -1,15 +1,6 @@
 @use 'sass:map';
 @import '../../variables.scss';
 @import '~@angular/material/theming';
-
-.header-title{
-    margin: 96px $margin $margin $margin;
-}
-
-.game-expansion {
-    margin: $margin;
-}
-
 .game-card {
     margin: $margin;
 }
@@ -24,9 +15,10 @@
 .card-content {
     display: flex;
     margin: $margin 0;
-    div, img {
-        flex-grow: 1;
-    }
+    justify-content: space-between;
+    // div, img {
+    //     flex-grow: 1;
+    // }
 }
 .time-stats{
     td,th {
@@ -40,4 +32,13 @@
 }
 .highlight { 
     color: map.get($mat-pink, 500);
+}
+.cover-container {
+    flex-grow: 1;
+    display: flex;
+    justify-content: right;
+    min-height: 100%;
+}
+.cover-image {
+    height: 100%;
 }
