@@ -22,9 +22,40 @@
 .friend-list {
     margin: $margin;
 }
-.game-status {
-    margin: $margin;
-}
 .logged-off {
     margin: $margin;
+}
+.avatar {
+    border: 3px solid black;
+    opacity: 0.2;
+    &.online {
+        border: 3px solid map.get($mat-pink, 500);
+        opacity: 1;
+    }
+}
+.header {
+    display: flex;
+}
+.status-container {
+    flex-grow: 1;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.status-indicator {
+    margin-left: $margin;
+    font-size: large;
+    color: rgba(black, 0.12);
+    &.online {
+        color: map.get($mat-pink, 500);
+    }
+    &.game {
+        font-size: x-large;
+    }
+}
+.game-status {
+    color: map.get($mat-pink, 500);
+    &.offline {
+        color: rgba(black, 0.54);
+    }
 }

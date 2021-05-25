@@ -2,6 +2,8 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Friend } from '../friend';
 import { GameDetails } from '../game';
 import { SteamService } from '../steam.service';
+import { formatRelative } from 'date-fns';
+import { enGB } from 'date-fns/locale';
 
 @Component({
   selector: 'app-friend-list',
@@ -43,12 +45,19 @@ export class FriendListComponent implements OnInit {
     return new Date(unix * 1000).toString();
   }
   lastLoggedOff(friend: Friend): string {
-    const date = new Date(friend.lastlogoff * 1000);
-    const dateString = date.toDateString();
-    const timeString = date.toTimeString().split(' ').shift();
-    if (dateString === new Date().toDateString()) {
-      return `Today ${timeString}`;
+    if (friend.gameid || friend.personastate === 1) {
+      return '';
     }
-    return `${dateString} ${timeString}`;
+    const date = new Date(friend.lastlogoff * 1000);
+    const dateText = formatRelative(date, new Date(), { locale: enGB });
+
+    return dateText.charAt(0).toUpperCase() + dateText.substring(1);
+  }
+  getStatus(friend: Friend): string {
+    const details = this.getGameDetails(friend);
+    if (details) {
+      return details.name;
+    }
+    return this.lastLoggedOff(friend) || 'Online';
   }
 }

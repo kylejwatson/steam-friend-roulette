@@ -22,6 +22,7 @@
     "@angular/platform-browser": "~11.2.13",
     "@angular/platform-browser-dynamic": "~11.2.13",
     "@angular/router": "~11.2.13",
+    "date-fns": "^2.21.3",
     "ngx-cookie": "^5.0.2",
     "rxjs": "~6.6.0",
     "tslib": "^2.0.0",
