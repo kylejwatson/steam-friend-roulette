@@ -26,8 +26,8 @@
 .filter-container {
     display: flex;
     padding: $margin $margin 0;
-    margin-top: 105px;
-    align-items: start;
+    margin: 105px 16px 0;
+    align-items: flex-start;
     h2 {
         margin: 0;
     }
@@ -47,13 +47,13 @@
     margin: 0 $margin;
     flex-grow: 1;
     justify-content: center;
-    align-items: start;
+    align-items: flex-start;
 }
-.sort-toggle{
+.sort-toggle {
     display: flex;
     align-items: center;
     justify-content: space-between;
 }
-.order-user{
+.order-user {
     margin: 0 $margin;
 }

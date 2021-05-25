@@ -16,12 +16,10 @@
     display: flex;
     margin: $margin 0;
     justify-content: space-between;
-    // div, img {
-    //     flex-grow: 1;
-    // }
 }
-.time-stats{
-    td,th {
+.time-stats {
+    td,
+    th {
         padding: 4px;
     }
 }
@@ -30,7 +28,7 @@
         margin: 0;
     }
 }
-.highlight { 
+.highlight {
     color: map.get($mat-pink, 500);
 }
 .cover-container {

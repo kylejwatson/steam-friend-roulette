@@ -8,7 +8,7 @@
 .friend-list {
     flex-grow: 1;
 }
-.games-button-container{
+.games-button-container {
     position: fixed;
     bottom: 0;
     left: 0;
@@ -20,7 +20,7 @@
     margin: $margin;
     padding: 8px;
     &:disabled {
-        background-color: rgb(224.4,224.4,224.4);
+        background-color: rgb(224.4, 224.4, 224.4);
     }
 }
 .buttons-container {
@@ -58,7 +58,7 @@
     display: flex;
     padding: $margin;
     margin-top: 105px;
-    align-items: center;    
+    align-items: center;
     min-height: 48px;
     h2 {
         margin: 0;
@@ -84,7 +84,7 @@
     flex-grow: 1;
     justify-content: center;
 }
-.sort-toggle{
+.sort-toggle {
     display: flex;
     align-items: center;
     justify-content: space-between;

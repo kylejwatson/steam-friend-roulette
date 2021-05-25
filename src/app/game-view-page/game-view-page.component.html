@@ -52,15 +52,13 @@
             </span>
         </button>
     </div>
-    <mat-expansion-panel class="filter-expansion" [expanded]="getCategories().length > 0">
-        <mat-expansion-panel-header>
-            <mat-panel-title>
-                Filters
-            </mat-panel-title>
-        </mat-expansion-panel-header>
-
-        <app-category-list [categories]="getCategories()" [games]="searchedGames()" [first]="true">
-        </app-category-list>
-    </mat-expansion-panel>
+    <mat-form-field appearance="fill" class="order-user">
+        <mat-label>Filters</mat-label>
+        <mat-select multiple (selectionChange)="filtersChanged($event)" [ngModel]="[1,2]">
+            <mat-option *ngFor="let category of getCategories()" [value]="category.id">
+                {{category.description}}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
 </div>
 <app-game-list [games]="filteredGames()" [steamId]="steamId"></app-game-list>

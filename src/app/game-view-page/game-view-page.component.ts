@@ -8,6 +8,7 @@ import { Location } from '@angular/common';
 import { MatAutocompleteTrigger } from '@angular/material/autocomplete';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Friend } from '../friend';
+import { MatSelectChange } from '@angular/material/select';
 
 @Component({
   selector: 'app-game-view-page',
@@ -170,7 +171,7 @@ export class GameViewPageComponent extends SteamIdParam implements OnInit {
           twoWeeksB - twoWeeksA;
       }
       if (this.allTime !== 0) {
-        const allTimeA = userStatsA?.playtime_2weeks || 0;
+        const allTimeA = userStatsA?.playtime_forever || 0;
         const allTimeB = userStatsB?.playtime_forever || 0;
         return this.allTime === 1 ?
           allTimeA - allTimeB :
@@ -185,6 +186,20 @@ export class GameViewPageComponent extends SteamIdParam implements OnInit {
       }
 
       return 0;
+    });
+  }
+  filtersChanged(event: MatSelectChange): void {
+    const selectedIds: number[] = event.value;
+    categories.forEach(category => {
+      const isChecked = selectedIds.includes(category.id);
+      category.checked = isChecked;
+      this.setAll(category, isChecked);
+    });
+  }
+  setAll(category: Category, checked: boolean): void {
+    category.subcategories?.forEach(sub => {
+      sub.checked = checked;
+      this.setAll(sub, checked);
     });
   }
 }
