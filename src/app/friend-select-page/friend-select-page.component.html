@@ -1,47 +1,87 @@
-<app-loading-overlay *ngIf="loading" (cancelEvent)="goBack()"></app-loading-overlay>
+<app-loading-overlay
+    *ngIf="loading"
+    (cancelEvent)="goBack()"
+></app-loading-overlay>
 
 <div class="controls-container">
     <div class="buttons-container">
-        <button (click)="goBack()" mat-raised-button class="back-button">Back to Steam ID entry </button>
+        <button (click)="goBack()" mat-raised-button class="back-button">
+            Back to Steam ID entry
+        </button>
         <mat-form-field appearance="standard" class="search-input">
             <mat-label>Search</mat-label>
-            <input type="text" matInput [matAutocomplete]="auto" [(ngModel)]="searchInput" (keyup.enter)="onSearch()"
-                #trigger="matAutocompleteTrigger" [formControl]="searchForm">
-            <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn" (optionSelected)="onSearch()">
-                <mat-option *ngFor="let friend of filteredFriendsAutoComplete()" [value]="friend.personaname">
-                    {{friend.personaname}}
+            <input
+                type="text"
+                matInput
+                [matAutocomplete]="auto"
+                [(ngModel)]="searchInput"
+                (keyup.enter)="onSearch()"
+                #trigger="matAutocompleteTrigger"
+                [formControl]="searchForm"
+            />
+            <mat-autocomplete
+                #auto="matAutocomplete"
+                [displayWith]="displayFn"
+                (optionSelected)="onSearch()"
+            >
+                <mat-option
+                    *ngFor="let friend of filteredFriendsAutoComplete()"
+                    [value]="friend.personaname"
+                >
+                    {{ friend.personaname }}
                 </mat-option>
             </mat-autocomplete>
-            <mat-error>
-                Cannot find any friends with that name
-            </mat-error>
+            <mat-error> Cannot find any friends with that name </mat-error>
         </mat-form-field>
-        <button (click)="onSearch()" mat-raised-button class="search-button">Search</button>
+        <button (click)="onSearch()" mat-raised-button class="search-button">
+            Search
+        </button>
 
-        <button (click)="refresh()" mat-button class="back-button" color="accent">
-            <mat-icon class="refresh-icon">refresh</mat-icon> Refresh friends list
+        <button
+            (click)="refresh()"
+            mat-button
+            class="back-button"
+            color="accent"
+        >
+            <mat-icon class="refresh-icon">refresh</mat-icon> Refresh friends
+            list
         </button>
     </div>
 </div>
 <div class="filter-container">
-    <h2>Friends ({{steamService.friends.length}}) </h2>
+    <h2>Friends ({{ steamService.friends.length }})</h2>
     <div class="sort-list">
-        <button mat-flat-button (click)="toggleAlphabetical()" [color]="alphabetical !== 0 ? 'accent' : ''">
-            <span class="sort-toggle">Alphabetical
+        <button
+            mat-flat-button
+            (click)="toggleAlphabetical()"
+            [color]="alphabetical !== 0 ? 'accent' : ''"
+        >
+            <span class="sort-toggle"
+                >Alphabetical
                 <mat-icon *ngIf="alphabetical === 0">unfold_more</mat-icon>
                 <mat-icon *ngIf="alphabetical === -1">arrow_drop_down</mat-icon>
                 <mat-icon *ngIf="alphabetical === 1">arrow_drop_up</mat-icon>
             </span>
         </button>
-        <button mat-flat-button (click)="toggleLoggedOff()" [color]="loggedoff !== 0 ? 'accent' : ''">
-            <span class="sort-toggle">Last logged off
+        <button
+            mat-flat-button
+            (click)="toggleLoggedOff()"
+            [color]="loggedoff !== 0 ? 'accent' : ''"
+        >
+            <span class="sort-toggle"
+                >Last logged off
                 <mat-icon *ngIf="loggedoff === 0">unfold_more</mat-icon>
                 <mat-icon *ngIf="loggedoff === -1">arrow_drop_down</mat-icon>
                 <mat-icon *ngIf="loggedoff === 1">arrow_drop_up</mat-icon>
             </span>
         </button>
-        <button mat-flat-button (click)="toggleFriendSince()" [color]="since !== 0 ? 'accent' : ''">
-            <span class="sort-toggle">Date added
+        <button
+            mat-flat-button
+            (click)="toggleFriendSince()"
+            [color]="since !== 0 ? 'accent' : ''"
+        >
+            <span class="sort-toggle"
+                >Date added
                 <mat-icon *ngIf="since === 0">unfold_more</mat-icon>
                 <mat-icon *ngIf="since === -1">arrow_drop_down</mat-icon>
                 <mat-icon *ngIf="since === 1">arrow_drop_up</mat-icon>
@@ -51,13 +91,25 @@
     <mat-form-field appearance="fill" class="order-user">
         <mat-label>Filters</mat-label>
         <mat-select multiple [(ngModel)]="filters">
-            <mat-option [value]="1" [disabled]="!steamService.onlineFriends().length" name="online">
+            <mat-option
+                [value]="1"
+                [disabled]="!steamService.onlineFriends().length"
+                name="online"
+            >
                 Online
             </mat-option>
-            <mat-option [value]="2" [disabled]="!steamService.inGameFriends().length" name="ingame">
+            <mat-option
+                [value]="2"
+                [disabled]="!steamService.inGameFriends().length"
+                name="ingame"
+            >
                 In-game
             </mat-option>
-            <mat-option [value]="3" [disabled]="!steamService.otherFriends().length" name="offline">
+            <mat-option
+                [value]="3"
+                [disabled]="!steamService.otherFriends().length"
+                name="offline"
+            >
                 Offline
             </mat-option>
         </mat-select>
@@ -95,25 +147,45 @@
 </div>
 <div class="friend-selection">
     <div class="friend-list">
-        <app-friend-list [friends]="filteredFriends(steamService.selectedFriends())"
-            (selectedFriendEvent)="steamService.toggleFriend($event)" title="Selected">
+        <app-friend-list
+            [friends]="filteredFriends(steamService.selectedFriends())"
+            (selectedFriendEvent)="steamService.toggleFriend($event)"
+            title="Selected"
+        >
         </app-friend-list>
     </div>
     <div class="friend-list">
-        <app-friend-list [friends]="filterSelected(steamService.onlineFriends())"
-            (selectedFriendEvent)="steamService.toggleFriend($event)" title="Online">
+        <app-friend-list
+            [friends]="filterSelected(steamService.onlineFriends())"
+            (selectedFriendEvent)="steamService.toggleFriend($event)"
+            title="Online"
+        >
         </app-friend-list>
-        <app-friend-list [friends]="filterSelected(steamService.otherFriends())"
-            (selectedFriendEvent)="steamService.toggleFriend($event)" title="Away/Offline">
+        <app-friend-list
+            [friends]="filterSelected(steamService.otherFriends())"
+            (selectedFriendEvent)="steamService.toggleFriend($event)"
+            title="Away/Offline"
+        >
         </app-friend-list>
     </div>
 </div>
 <div class="games-button-container">
-    <button (click)="getGames()" mat-raised-button class="games-button"
-        [disabled]="steamService.selectedFriends().length === 0" color="accent">Get shared games
+    <button
+        (click)="getGames()"
+        mat-raised-button
+        class="games-button"
+        [disabled]="steamService.selectedFriends().length === 0"
+        color="accent"
+    >
+        Get shared games
         <mat-icon>sports_esports</mat-icon>
     </button>
 </div>
-<button mat-fab aria-label="Scroll back to the top of the list" class="scroll-button" (click)="scrollToTop()">
+<button
+    mat-fab
+    aria-label="Scroll back to the top of the list"
+    class="scroll-button"
+    (click)="scrollToTop()"
+>
     <mat-icon>arrow_upward</mat-icon>
 </button>

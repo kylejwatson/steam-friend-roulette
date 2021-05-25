@@ -1,51 +1,87 @@
-<app-loading-overlay *ngIf="loading" (cancelEvent)="goBack()"></app-loading-overlay>
+<app-loading-overlay
+    *ngIf="loading"
+    (cancelEvent)="goBack()"
+></app-loading-overlay>
 <div class="controls-container">
     <div class="buttons-container">
-        <button (click)="goBack()" mat-raised-button class="back-button">Back to friend selection</button>
+        <button (click)="goBack()" mat-raised-button class="back-button">
+            Back to friend selection
+        </button>
         <mat-form-field appearance="standard" class="search-input">
             <mat-label>Search</mat-label>
-            <input type="text" matInput [matAutocomplete]="auto" [(ngModel)]="searchInput" (keyup.enter)="onSearch()"
-                #trigger="matAutocompleteTrigger">
-            <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn" (optionSelected)="onSearch()">
-                <mat-option *ngFor="let game of filteredResults()" [value]="game.name">
-                    {{game.name}}
+            <input
+                type="text"
+                matInput
+                [matAutocomplete]="auto"
+                [(ngModel)]="searchInput"
+                (keyup.enter)="onSearch()"
+                #trigger="matAutocompleteTrigger"
+            />
+            <mat-autocomplete
+                #auto="matAutocomplete"
+                [displayWith]="displayFn"
+                (optionSelected)="onSearch()"
+            >
+                <mat-option
+                    *ngFor="let game of filteredResults()"
+                    [value]="game.name"
+                >
+                    {{ game.name }}
                 </mat-option>
             </mat-autocomplete>
         </mat-form-field>
-        <button (click)="onSearch()" mat-raised-button class="search-button">Search</button>
+        <button (click)="onSearch()" mat-raised-button class="search-button">
+            Search
+        </button>
     </div>
 </div>
 <div class="filter-container">
-    <h2 class="header-title">Shared Games ({{filteredGames().length}})</h2>
+    <h2 class="header-title">Shared Games ({{ filteredGames().length }})</h2>
 
     <div class="sort-list">
         <mat-form-field appearance="fill" class="order-user">
             <mat-label>Order-by User</mat-label>
             <mat-select [(ngModel)]="orderUser" [disabled]="alphabetical !== 0">
-                <mat-option [value]="steamId">
-                    You
-                </mat-option>
-                <mat-option *ngFor="let friend of selectedFriends()" [value]="friend.steamid">
-                    {{friend.personaname}}
+                <mat-option [value]="steamId"> You </mat-option>
+                <mat-option
+                    *ngFor="let friend of selectedFriends()"
+                    [value]="friend.steamid"
+                >
+                    {{ friend.personaname }}
                 </mat-option>
             </mat-select>
         </mat-form-field>
-        <button mat-flat-button (click)="toggleAlphabetical()" [color]="alphabetical !== 0 ? 'accent' : ''">
-            <span class="sort-toggle">Alphabetical
+        <button
+            mat-flat-button
+            (click)="toggleAlphabetical()"
+            [color]="alphabetical !== 0 ? 'accent' : ''"
+        >
+            <span class="sort-toggle"
+                >Alphabetical
                 <mat-icon *ngIf="alphabetical === 0">unfold_more</mat-icon>
                 <mat-icon *ngIf="alphabetical === -1">arrow_drop_down</mat-icon>
                 <mat-icon *ngIf="alphabetical === 1">arrow_drop_up</mat-icon>
             </span>
         </button>
-        <button mat-flat-button (click)="toggleTwoWeeks()" [color]="twoWeeks !== 0 ? 'accent' : ''">
-            <span class="sort-toggle">Play time (2 Weeks)
+        <button
+            mat-flat-button
+            (click)="toggleTwoWeeks()"
+            [color]="twoWeeks !== 0 ? 'accent' : ''"
+        >
+            <span class="sort-toggle"
+                >Play time (2 Weeks)
                 <mat-icon *ngIf="twoWeeks === 0">unfold_more</mat-icon>
                 <mat-icon *ngIf="twoWeeks === -1">arrow_drop_down</mat-icon>
                 <mat-icon *ngIf="twoWeeks === 1">arrow_drop_up</mat-icon>
             </span>
         </button>
-        <button mat-flat-button (click)="toggleAllTime()" [color]="allTime !== 0 ? 'accent' : ''">
-            <span class="sort-toggle">Play time (All time)
+        <button
+            mat-flat-button
+            (click)="toggleAllTime()"
+            [color]="allTime !== 0 ? 'accent' : ''"
+        >
+            <span class="sort-toggle"
+                >Play time (All time)
                 <mat-icon *ngIf="allTime === 0">unfold_more</mat-icon>
                 <mat-icon *ngIf="allTime === -1">arrow_drop_down</mat-icon>
                 <mat-icon *ngIf="allTime === 1">arrow_drop_up</mat-icon>
@@ -54,9 +90,16 @@
     </div>
     <mat-form-field appearance="fill">
         <mat-label>Filters</mat-label>
-        <mat-select multiple (selectionChange)="filtersChanged($event)" [ngModel]="[1,2]">
-            <mat-option *ngFor="let category of getCategories()" [value]="category.id">
-                {{category.description}}
+        <mat-select
+            multiple
+            (selectionChange)="filtersChanged($event)"
+            [ngModel]="[1, 2]"
+        >
+            <mat-option
+                *ngFor="let category of getCategories()"
+                [value]="category.id"
+            >
+                {{ category.description }}
             </mat-option>
         </mat-select>
     </mat-form-field>

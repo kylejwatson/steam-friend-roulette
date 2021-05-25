@@ -1,49 +1,55 @@
 <div class="front-page">
-
     <div class="content">
         <div class="info-container">
-            <h1>
-                Steam Friend Roulette
-            </h1>
-            <button mat-icon-button aria-label="Info button" class="info-button" color="accent" (click)="openDialog()">
+            <h1>Steam Friend Roulette</h1>
+            <button
+                mat-icon-button
+                aria-label="Info button"
+                class="info-button"
+                color="accent"
+                (click)="openDialog()"
+            >
                 <mat-icon>info</mat-icon>
             </button>
         </div>
-        <h2>
-            🎮
-            🕹️
-            👾
-            ⚙️
-            🎲
-            🎰
-        </h2>
-        <div class=" login-container">
+        <h2>🎮 🕹️ 👾 ⚙️ 🎲 🎰</h2>
+        <div class="login-container">
             <div class="id-input-holder">
                 <mat-form-field appearance="standard" class="id-input">
                     <mat-label>Steam ID</mat-label>
-                    <input [(ngModel)]="steamId" matInput placeholder="01234567890123456">
-                    <mat-hint>You can find this by going to your Steam profile in a web browser and taking the 17 digit
-                        number
-                        from
-                        after 'profiles/'. Example: https://steamcommunity.com/profiles/01234567890123456/</mat-hint>
+                    <input
+                        [(ngModel)]="steamId"
+                        matInput
+                        placeholder="01234567890123456"
+                    />
+                    <mat-hint
+                        >You can find this by going to your Steam profile in a
+                        web browser and taking the 17 digit number from after
+                        'profiles/'. Example:
+                        https://steamcommunity.com/profiles/01234567890123456/</mat-hint
+                    >
                 </mat-form-field>
             </div>
             <div class="button-holder">
                 <p>
-                    Alternatively you can sign in using the button below. This shares your Steam information with us but
-                    we
-                    only
-                    use
-                    it for finding your Steam ID.
+                    Alternatively you can sign in using the button below. This
+                    shares your Steam information with us but we only use it for
+                    finding your Steam ID.
                 </p>
-                <a href={{loginUrl}}><img src="assets/sits_01.png" /></a>
+                <a href="{{ loginUrl }}"><img src="assets/sits_01.png" /></a>
             </div>
         </div>
 
         <div class="button-holder">
-            <button (click)="getFriends()" mat-raised-button class="games-button" [disabled]="!steamId"
-                color="accent">Get
-                friends</button>
+            <button
+                (click)="getFriends()"
+                mat-raised-button
+                class="games-button"
+                [disabled]="!steamId"
+                color="accent"
+            >
+                Get friends
+            </button>
         </div>
     </div>
 </div>
