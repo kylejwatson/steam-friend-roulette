@@ -47,7 +47,7 @@
                 (click)="getFriends()"
                 mat-raised-button
                 class="games-button"
-                [disabled]="!isValidId()"
+                [disabled]="!isValidId(idForm.value)"
                 color="accent"
             >
                 Get friends

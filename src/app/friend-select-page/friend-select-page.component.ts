@@ -52,10 +52,13 @@ export class FriendSelectPageComponent extends SteamIdParam implements OnInit {
   ) { super(router, route, cookie, location, snackBar); }
 
   ngOnInit(): void {
-    this.getSteamId(
-      () => this.getFriends(),
-      () => this.router.navigate(['/steam-id'])
-    );
+    this.getSteamId().subscribe(steamId => {
+      if (steamId) {
+        this.getFriends();
+      } else {
+        this.router.navigate(['/steam-id']);
+      }
+    });
   }
 
   getFriends(): void {

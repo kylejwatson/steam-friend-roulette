@@ -39,10 +39,13 @@ export class GameViewPageComponent extends SteamIdParam implements OnInit {
   ) { super(router, route, cookie, location, snackBar); }
 
   ngOnInit(): void {
-    this.getSteamId(
-      () => this.getSelectedFriends(),
-      () => this.router.navigate(['/steam-id'])
-    );
+    this.getSteamId().subscribe(steamId => {
+      if (steamId) {
+        this.getSelectedFriends();
+      } else {
+        this.router.navigate(['/steam-id']);
+      }
+    });
   }
 
   getSelectedFriends(): void {
@@ -75,7 +78,7 @@ export class GameViewPageComponent extends SteamIdParam implements OnInit {
         });
       }
       this.loading = false;
-    }, () => this.goBack());
+    });
   }
 
   goBack(): void {
