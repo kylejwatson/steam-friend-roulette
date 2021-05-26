@@ -93,13 +93,17 @@
         <mat-select
             multiple
             (selectionChange)="filtersChanged($event)"
-            [ngModel]="[1, 2]"
+            [(ngModel)]="filters"
         >
+            <mat-select-trigger>
+                {{ getFilterDescriptions(filters) }}
+            </mat-select-trigger>
             <mat-option
                 *ngFor="let category of getCategories()"
                 [value]="category.id"
             >
-                {{ category.description }}
+                {{ category.description
+                }}<mat-icon class="category-icon">{{ category.icon }}</mat-icon>
             </mat-option>
         </mat-select>
     </mat-form-field>

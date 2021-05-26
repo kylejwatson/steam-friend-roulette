@@ -25,6 +25,7 @@ export class GameViewPageComponent extends SteamIdParam implements OnInit {
   twoWeeks = 0;
   allTime = -1;
   orderUser = '';
+  filters = [1, 2];
 
   @ViewChild(MatAutocompleteTrigger) autocompleteTrigger?: MatAutocompleteTrigger;
 
@@ -187,6 +188,12 @@ export class GameViewPageComponent extends SteamIdParam implements OnInit {
 
       return 0;
     });
+  }
+  getCategory(id: number): Category | undefined {
+    return categories.find(category => category.id === id);
+  }
+  getFilterDescriptions(filters: number[]): string {
+    return filters.map(filter => categories.find(category => category.id === filter)?.description).join(', ');
   }
   filtersChanged(event: MatSelectChange): void {
     const selectedIds: number[] = event.value;

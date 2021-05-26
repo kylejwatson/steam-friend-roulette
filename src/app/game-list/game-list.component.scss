@@ -18,6 +18,10 @@
     justify-content: space-between;
 }
 .time-stats {
+    flex-grow: 1;
+    table {
+        width: max-content;
+    }
     td,
     th {
         padding: 4px;
@@ -39,4 +43,18 @@
 }
 .cover-image {
     height: 100%;
+}
+.description {
+    margin: 0 $margin;
+}
+.category-container {
+    display: flex;
+}
+.category {
+    display: flex;
+    align-items: center;
+    margin-right: $margin;
+    span {
+        margin-right: 4px;
+    }
 }

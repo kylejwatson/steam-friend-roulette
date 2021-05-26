@@ -14,8 +14,13 @@ export interface Game {
 export interface Category {
     id: number;
     description: string;
+    icon?: string;
     checked?: boolean;
     subcategories?: Category[];
+}
+export interface Genre {
+    id: number;
+    description: string;
 }
 export interface GameDetails {
     name: string;
@@ -26,18 +31,21 @@ export interface GameDetails {
     about_the_game: string;
     header_image: string;
     categories: Category[];
+    genres: Genre[];
 }
 
 export const categories: Category[] = [
     {
         id: 2,
         description: 'Single-player',
-        checked: true
+        checked: true,
+        icon: 'person_outline'
     },
     {
         id: 1,
         description: 'Multi-player',
         checked: true,
+        icon: 'groups',
         subcategories: [
             {
                 id: 49,

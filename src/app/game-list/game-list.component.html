@@ -3,7 +3,22 @@
         <mat-card-header>
             <img mat-card-avatar [src]="game.img_icon_url" />
             <mat-card-title>{{ game.name }}</mat-card-title>
-            <!-- <mat-card-subtitle>{{game.realname}}</mat-card-subtitle> -->
+            <mat-card-subtitle>
+                <div class="category-container">
+                    <div
+                        *ngFor="let category of getCategories(game)"
+                        class="category"
+                    >
+                        <span>{{ category.title }}</span>
+                        <mat-icon>{{ category.icon }}</mat-icon>
+                    </div>
+                </div>
+                <div class="category-container">
+                    <div *ngFor="let genre of getGenres(game)" class="category">
+                        {{ genre.description }}
+                    </div>
+                </div>
+            </mat-card-subtitle>
         </mat-card-header>
         <div class="card-content">
             <div class="time-stats">
@@ -45,9 +60,14 @@
                     </tbody>
                 </table>
             </div>
-            <div class="cover-container">
-                <img [src]="getCoverImage(game)" class="cover-image" />
+            <div class="description">
+                <p>
+                    {{ getGameDescription(game) }}
+                </p>
             </div>
+            <!-- <div class="cover-container"> -->
+            <img [src]="getCoverImage(game)" class="cover-image" />
+            <!-- </div> -->
         </div>
     </mat-card>
 </div>
