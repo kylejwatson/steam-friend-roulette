@@ -32,7 +32,7 @@ export class ErrorToastInterceptor implements HttpInterceptor {
         ),
         finalize(() => {
           if (error) {
-            let errorMessage = 'Something went wrong';
+            let errorMessage = '';
             switch (error.status) {
               case 0:
                 errorMessage = 'Unable to connect to the server';
@@ -45,10 +45,12 @@ export class ErrorToastInterceptor implements HttpInterceptor {
                 this.router.navigate(['/steam-id'], { queryParams: { id: '' } });
                 break;
             }
-            this.snackBar.open(errorMessage, 'Close', {
-              duration: 3000,
-              verticalPosition: 'top'
-            });
+            if (errorMessage) {
+              this.snackBar.open(errorMessage, 'Close', {
+                duration: 3000,
+                verticalPosition: 'top'
+              });
+            }
           }
         })
       );

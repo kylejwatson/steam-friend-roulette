@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable, pipe } from 'rxjs';
+import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Friend } from './friend';
 import { HttpClient } from '@angular/common/http';
@@ -35,21 +35,23 @@ export class SteamService {
   getFriends(steamId: string): Observable<Friend[]> {
     const url = this.makeFriendsUrl(steamId);
     const friendsResponse = this.http.get<Friend[]>(url);
-    friendsResponse.subscribe(friends => {
-      const gameIds: number[] = [];
-      this.friends = friends.map(friend => {
-        if (friend.gameid) {
-          gameIds.push(Number.parseInt(friend.gameid, 10));
-        }
-        const alreadyLoaded = this.friends.find(currentFriend => currentFriend.steamid === friend.steamid);
-        return {
-          ...friend,
-          selected: alreadyLoaded?.selected
-        };
-      });
-      this.getGames(gameIds);
-    });
-    return friendsResponse;
+    return friendsResponse.pipe(
+      map(friends => {
+        const gameIds: number[] = [];
+        this.friends = friends.map(friend => {
+          if (friend.gameid) {
+            gameIds.push(Number.parseInt(friend.gameid, 10));
+          }
+          const alreadyLoaded = this.friends.find(currentFriend => currentFriend.steamid === friend.steamid);
+          return {
+            ...friend,
+            selected: alreadyLoaded?.selected
+          };
+        });
+        this.getGames(gameIds);
+        return this.friends;
+      })
+    );
   }
 
   onlineFriends(): Friend[] {

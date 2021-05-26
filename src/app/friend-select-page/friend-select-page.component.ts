@@ -8,6 +8,8 @@ import { Friend } from '../friend';
 import { MatAutocompleteTrigger } from '@angular/material/autocomplete';
 import { FormControl } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { catchError } from 'rxjs/operators';
+import { of } from 'rxjs';
 
 enum Filter {
   Online = 1,
@@ -58,15 +60,26 @@ export class FriendSelectPageComponent extends SteamIdParam implements OnInit {
 
   getFriends(): void {
     this.loading = true;
-    this.steamService.getFriends(this.steamId).subscribe(() => {
+    this.steamService.getFriends(this.steamId).pipe(
+      catchError(err => {
+        if (err.status === 404) {
+          this.snackBar.open('Steam profile not found', 'Close', {
+            duration: 3000,
+            verticalPosition: 'top'
+          });
+          this.router.navigate(['/steam-id'], { queryParams: { id: this.steamId } });
+        }
+        return of([]);
+      })
+    ).subscribe(friends => {
       this.loading = false;
-      if (this.steamService.friends.length === 0) {
+      if (friends.length === 0) {
         this.snackBar.open('No friends were found', 'Close', {
           duration: 3000,
           verticalPosition: 'top'
         });
       }
-    }, () => this.goBack());
+    });
   }
 
   getGames(): void {
