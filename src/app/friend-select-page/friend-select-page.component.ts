@@ -72,9 +72,12 @@ export class FriendSelectPageComponent extends SteamIdParam implements OnInit {
           });
           this.router.navigate(['/steam-id'], { queryParams: { id: this.steamId } });
         }
-        return of([]);
+        return of(undefined);
       })
     ).subscribe(friends => {
+      if (!friends) {
+        return;
+      }
       this.loading = false;
       if (friends.length === 0) {
         this.snackBar.open('No friends were found', 'Close', {
