@@ -7,6 +7,8 @@ import { Location } from '@angular/common';
 import { MatDialog } from '@angular/material/dialog';
 import { InfoDialogComponent } from '../info-dialog/info-dialog.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { FormControl } from '@angular/forms';
+import * as SteamID from 'steamid';
 
 @Component({
   selector: 'app-steam-id-page',
@@ -15,6 +17,12 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 })
 export class SteamIdPageComponent extends SteamIdParam implements OnInit {
   loginUrl = `${environment.serverUrl}/auth`;
+  idForm = new FormControl('', () => {
+    if (!this.idForm?.value) {
+      return null;
+    }
+    return this.isValidId() ? null : [{ id: 1 }];
+  });
 
   constructor(
     router: Router,
@@ -26,7 +34,9 @@ export class SteamIdPageComponent extends SteamIdParam implements OnInit {
   ) { super(router, route, cookie, location, snackBar); }
 
   ngOnInit(): void {
-    this.getSteamId();
+    this.getSteamId(() => {
+      this.idForm.markAsDirty();
+    });
   }
 
   getFriends(): void {
@@ -36,5 +46,18 @@ export class SteamIdPageComponent extends SteamIdParam implements OnInit {
 
   openDialog(): void {
     this.dialog.open(InfoDialogComponent);
+  }
+
+  isValidId(): boolean {
+    const id = this.idForm.value;
+    if (!id) {
+      return false;
+    }
+    try {
+      const steamId = new SteamID(id);
+      return steamId.isValid();
+    } catch (e) {
+      return false;
+    }
   }
 }

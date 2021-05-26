@@ -21,13 +21,15 @@
                         [(ngModel)]="steamId"
                         matInput
                         placeholder="01234567890123456"
+                        [formControl]="idForm"
                     />
                     <mat-hint
-                        >You can find this by going to your Steam profile in a
-                        web browser and taking the 17 digit number from after
-                        'profiles/'. Example:
+                        >(If you don't have a custom URL) You can find this by
+                        going to your Steam profile in a web browser and taking
+                        the 17 digit number from after 'profiles/'. Example:
                         https://steamcommunity.com/profiles/01234567890123456/</mat-hint
                     >
+                    <mat-error>Invalid Steam ID</mat-error>
                 </mat-form-field>
             </div>
             <div class="button-holder">
@@ -45,7 +47,7 @@
                 (click)="getFriends()"
                 mat-raised-button
                 class="games-button"
-                [disabled]="!steamId"
+                [disabled]="!isValidId()"
                 color="accent"
             >
                 Get friends
