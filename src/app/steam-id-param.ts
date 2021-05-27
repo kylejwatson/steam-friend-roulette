@@ -66,7 +66,7 @@ export class SteamIdParam {
         try {
             this.cookiesAllowed = JSON.parse(this.cookie.get('cookiePermission'));
         } catch (error) {
-
+            delete this.cookiesAllowed;
         }
     }
 
