@@ -49,12 +49,15 @@ export class GameViewPageComponent extends SteamIdParam implements OnInit {
   }
 
   getSelectedFriends(): void {
-    if (this.steamService.selectedFriends().length === 0) {
+    if (this.steamService.selectedIds(this.steamId).length === 0) {
       this.snackBar.open('Please select friends from your friends list first', 'Close', {
         duration: 3000
       });
       this.router.navigate(['/friend-select'], { queryParams: { id: this.steamId } });
       return;
+    }
+    if (this.steamService.friends.length === 0) {
+      this.steamService.getFriends(this.steamId).subscribe();
     }
     this.orderUser = this.steamId;
     this.getGames();
@@ -66,7 +69,7 @@ export class GameViewPageComponent extends SteamIdParam implements OnInit {
 
   getGames(): void {
     this.loading = true;
-    const steamIds = this.steamService.selectedFriends().map(friend => friend.steamid);
+    const steamIds = this.steamService.selectedIds(this.steamId);
     steamIds.unshift(this.steamId);
     this.steamService.getSharedGames(steamIds).subscribe(games => {
       this.games = games;

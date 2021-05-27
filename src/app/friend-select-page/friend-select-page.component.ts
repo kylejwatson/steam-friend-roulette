@@ -88,6 +88,10 @@ export class FriendSelectPageComponent extends SteamIdParam implements OnInit {
 
   getGames(): void {
     this.router.navigate(['/game-view'], { queryParams: { id: this.steamId } });
+    const friendIds = this.steamService.selectedFriends().map(friend => friend.steamid);
+    this.steamService.friendSelectionCookie[this.steamId] = friendIds;
+
+    this.saveCookie('friendSelection', JSON.stringify(this.steamService.friendSelectionCookie));
   }
 
   goBack(): void {

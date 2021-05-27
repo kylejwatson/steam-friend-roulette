@@ -5,15 +5,27 @@ import { Friend } from './friend';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { Category, Game, GameDetails } from './game';
+import { CookieService } from 'ngx-cookie';
+
+interface FriendSelectionCookie {
+  [key: string]: string[];
+}
 
 @Injectable({
   providedIn: 'root'
 })
 export class SteamService {
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, cookie: CookieService) {
+    try {
+      this.friendSelectionCookie = JSON.parse(cookie.get('friendSelection'));
+    } catch (error) {
+
+    }
+  }
 
   friends: Friend[] = [];
   games: GameDetails[] = [];
+  friendSelectionCookie: FriendSelectionCookie = {};
 
   private makeFriendsUrl(steamId: string): string {
     return `${environment.serverUrl}/friendSummary?steamid=${steamId}`;
@@ -43,11 +55,14 @@ export class SteamService {
             gameIds.push(Number.parseInt(friend.gameid, 10));
           }
           const alreadyLoaded = this.friends.find(currentFriend => currentFriend.steamid === friend.steamid);
+          const selectedInCookie = this.friendSelectionCookie[steamId]?.includes(friend.steamid);
+
           return {
             ...friend,
-            selected: alreadyLoaded?.selected
+            selected: alreadyLoaded ? alreadyLoaded.selected : selectedInCookie
           };
         });
+        delete this.friendSelectionCookie[steamId];
         this.getGames(gameIds);
         return this.friends;
       })
@@ -62,6 +77,9 @@ export class SteamService {
   }
   selectedFriends(): Friend[] {
     return this.friends.filter(friend => friend.selected);
+  }
+  selectedIds(steamId: string): string[] {
+    return this.friendSelectionCookie[steamId] || this.selectedFriends().map(friend => friend.steamid);
   }
   otherFriends(): Friend[] {
     return this.friends.filter(friend => friend.personastate !== 1 && !friend.gameid);
