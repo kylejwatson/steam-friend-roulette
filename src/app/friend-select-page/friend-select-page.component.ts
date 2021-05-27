@@ -54,7 +54,7 @@ export class FriendSelectPageComponent extends SteamIdParam implements OnInit {
   ) { super(router, route, cookie, location, snackBar); }
 
   ngOnInit(): void {
-    this.titleService.setTitle('Friendship - Friends');
+    this.titleService.setTitle('Steamship - Friends');
 
     this.getSteamId().subscribe(steamId => {
       if (steamId) {

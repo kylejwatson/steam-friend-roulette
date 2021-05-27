@@ -41,7 +41,7 @@ export class GameViewPageComponent extends SteamIdParam implements OnInit {
   ) { super(router, route, cookie, location, snackBar); }
 
   ngOnInit(): void {
-    this.titleService.setTitle('Friendship - Games');
+    this.titleService.setTitle('Steamship - Games');
     this.getSteamId().subscribe(steamId => {
       if (steamId) {
         this.getSelectedFriends();
