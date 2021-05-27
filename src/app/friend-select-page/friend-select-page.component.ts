@@ -56,6 +56,11 @@ export class FriendSelectPageComponent extends SteamIdParam implements OnInit {
       if (steamId) {
         this.getFriends();
       } else {
+        if (!this.steamId) {
+          this.snackBar.open('Please enter your Steam ID first', 'Close', {
+            duration: 3000
+          });
+        }
         this.router.navigate(['/steam-id']);
       }
     });

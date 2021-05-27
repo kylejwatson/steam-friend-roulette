@@ -39,13 +39,6 @@ export class SteamIdParam {
             this.steamId = this.cookie.get('steamId');
             const url = this.router.createUrlTree([], { relativeTo: this.route, queryParams: { id: this.steamId } }).toString();
             this.location.go(url);
-
-            if (!this.steamId) {
-                this.snackBar.open('Please enter your Steam ID first', 'Close', {
-                    duration: 3000
-                });
-            }
-
             return this.steamId;
         }));
     }

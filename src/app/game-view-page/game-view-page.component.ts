@@ -44,6 +44,12 @@ export class GameViewPageComponent extends SteamIdParam implements OnInit {
         this.getSelectedFriends();
       } else {
         this.router.navigate(['/steam-id']);
+
+        if (!this.steamId) {
+          this.snackBar.open('Please enter your Steam ID first', 'Close', {
+            duration: 3000
+          });
+        }
       }
     });
   }

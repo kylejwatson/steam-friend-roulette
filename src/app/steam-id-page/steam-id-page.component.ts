@@ -15,7 +15,6 @@ import { FormControl } from '@angular/forms';
   styleUrls: ['./steam-id-page.component.scss']
 })
 export class SteamIdPageComponent extends SteamIdParam implements OnInit {
-  loginUrl = `${environment.serverUrl}/auth`;
   idForm: FormControl = new FormControl('', () => {
     if (!this.idForm?.value) {
       return null;
@@ -29,13 +28,15 @@ export class SteamIdPageComponent extends SteamIdParam implements OnInit {
     cookie: CookieService,
     location: Location,
     private dialog: MatDialog,
-    snackBar: MatSnackBar
+    snackBar: MatSnackBar,
+    private window: Window
   ) { super(router, route, cookie, location, snackBar); }
 
   ngOnInit(): void {
     this.getSteamId().subscribe(() => {
       this.idForm.markAsDirty();
     });
+    this.saveCookie('signInAllowed', 'true');
   }
 
   getFriends(): void {
@@ -52,5 +53,9 @@ export class SteamIdPageComponent extends SteamIdParam implements OnInit {
 
   steamSignInAllowed(): boolean {
     return !!this.cookiesAllowed?.session;
+  }
+
+  signIn(): void {
+    this.window.location.href = `${environment.serverUrl}/auth`;
   }
 }
