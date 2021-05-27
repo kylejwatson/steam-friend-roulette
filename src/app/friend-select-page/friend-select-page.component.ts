@@ -10,6 +10,7 @@ import { FormControl } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { catchError } from 'rxjs/operators';
 import { of } from 'rxjs';
+import { Title } from '@angular/platform-browser';
 
 enum Filter {
   Online = 1,
@@ -48,10 +49,13 @@ export class FriendSelectPageComponent extends SteamIdParam implements OnInit {
     public steamService: SteamService,
     private document: Document,
     private window: Window,
-    snackBar: MatSnackBar
+    snackBar: MatSnackBar,
+    private titleService: Title
   ) { super(router, route, cookie, location, snackBar); }
 
   ngOnInit(): void {
+    this.titleService.setTitle('Friendship - Friends');
+
     this.getSteamId().subscribe(steamId => {
       if (steamId) {
         this.getFriends();

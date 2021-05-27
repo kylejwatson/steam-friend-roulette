@@ -9,6 +9,7 @@ import { MatAutocompleteTrigger } from '@angular/material/autocomplete';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Friend } from '../friend';
 import { MatSelectChange } from '@angular/material/select';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-game-view-page',
@@ -35,10 +36,12 @@ export class GameViewPageComponent extends SteamIdParam implements OnInit {
     cookie: CookieService,
     location: Location,
     private steamService: SteamService,
-    snackBar: MatSnackBar
+    snackBar: MatSnackBar,
+    private titleService: Title
   ) { super(router, route, cookie, location, snackBar); }
 
   ngOnInit(): void {
+    this.titleService.setTitle('Friendship - Games');
     this.getSteamId().subscribe(steamId => {
       if (steamId) {
         this.getSelectedFriends();

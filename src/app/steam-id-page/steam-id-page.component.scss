@@ -41,11 +41,21 @@
     width: 100%;
     display: flex;
     justify-content: right;
-    h1 {
+    .title {
+        display: flex;
         position: absolute;
         left: 0;
         right: 0;
-        text-align: center;
+        justify-content: center;
+        align-items: center;
+        h1 {
+            text-align: center;
+            margin: 0;
+        }
+        .icon {
+            height: 3em;
+            margin-right: $margin;
+        }
     }
 }
 .steam-sign-in {
