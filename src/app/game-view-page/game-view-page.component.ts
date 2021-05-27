@@ -51,8 +51,7 @@ export class GameViewPageComponent extends SteamIdParam implements OnInit {
   getSelectedFriends(): void {
     if (this.steamService.selectedFriends().length === 0) {
       this.snackBar.open('Please select friends from your friends list first', 'Close', {
-        duration: 3000,
-        verticalPosition: 'top'
+        duration: 3000
       });
       this.router.navigate(['/friend-select'], { queryParams: { id: this.steamId } });
       return;
@@ -73,8 +72,7 @@ export class GameViewPageComponent extends SteamIdParam implements OnInit {
       this.games = games;
       if (games.length === 0) {
         this.snackBar.open('No games in common found between you and the friends you selected, try selecting less friends', 'Close', {
-          duration: 5000,
-          verticalPosition: 'top'
+          duration: 5000
         });
       }
       this.loading = false;

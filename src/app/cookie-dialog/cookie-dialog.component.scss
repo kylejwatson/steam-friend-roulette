@@ -1,0 +1,9 @@
+@import '../../variables.scss';
+
+form {
+    margin: $margin;
+}
+mat-slide-toggle {
+    display: block;
+    margin: $margin;
+}

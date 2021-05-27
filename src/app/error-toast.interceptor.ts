@@ -47,8 +47,7 @@ export class ErrorToastInterceptor implements HttpInterceptor {
             }
             if (errorMessage) {
               this.snackBar.open(errorMessage, 'Close', {
-                duration: 3000,
-                verticalPosition: 'top'
+                duration: 3000
               });
             }
           }

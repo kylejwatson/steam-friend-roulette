@@ -67,8 +67,7 @@ export class FriendSelectPageComponent extends SteamIdParam implements OnInit {
       catchError(err => {
         if (err.status === 404) {
           this.snackBar.open('Steam profile not found', 'Close', {
-            duration: 3000,
-            verticalPosition: 'top'
+            duration: 3000
           });
           this.router.navigate(['/steam-id'], { queryParams: { id: this.steamId } });
         }
@@ -81,8 +80,7 @@ export class FriendSelectPageComponent extends SteamIdParam implements OnInit {
       this.loading = false;
       if (friends.length === 0) {
         this.snackBar.open('No friends were found', 'Close', {
-          duration: 3000,
-          verticalPosition: 'top'
+          duration: 3000
         });
       }
     });

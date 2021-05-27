@@ -1,0 +1,31 @@
+<h2 mat-dialog-title>Steam Friend Roulette</h2>
+<mat-dialog-content class="mat-typography">
+    <h3>Cookies</h3>
+    <p>
+        Feel free to choose which cookies you'd like us to use. If you decide to
+        not allow the 'Cookie Permission' cookies, then you will be asked to
+        accept cookies everytime you enter the page (because we won't be able to
+        tell if you rejected before). None of the cookies are essential to the
+        main functionality of the app, but the 'Sign in with Steam' button won't
+        work without the 'Session' cookies.
+    </p>
+    <form [formGroup]="formGroup" (ngSubmit)="onFormSubmit()" ngNativeValidate>
+        <mat-checkbox
+            (change)="setAll($event.checked)"
+            [checked]="allChecked()"
+            [indeterminate]="someChecked()"
+            >Toggle All</mat-checkbox
+        >
+        <mat-slide-toggle formControlName="steamId">Steam ID</mat-slide-toggle>
+        <mat-slide-toggle formControlName="friendSelection"
+            >Friend Selection</mat-slide-toggle
+        >
+        <mat-slide-toggle formControlName="session">Session</mat-slide-toggle>
+        <mat-slide-toggle formControlName="cookiePermission"
+            >Cookie Permission</mat-slide-toggle
+        >
+    </form>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close (click)="onFormSubmit()">Save</button>
+</mat-dialog-actions>

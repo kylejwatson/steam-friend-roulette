@@ -27,8 +27,11 @@ import { ErrorStateMatcher, ShowOnDirtyErrorStateMatcher } from '@angular/materi
 import { InfoDialogComponent } from './info-dialog/info-dialog.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { ErrorToastInterceptor } from './error-toast.interceptor';
-import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatSnackBarModule, MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/material/snack-bar';
 import { MatSelectModule } from '@angular/material/select';
+import { CookieSnackbarComponent } from './cookie-snackbar/cookie-snackbar.component';
+import { CookieDialogComponent } from './cookie-dialog/cookie-dialog.component';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 
 @NgModule({
   declarations: [
@@ -40,7 +43,9 @@ import { MatSelectModule } from '@angular/material/select';
     GameViewPageComponent,
     LoadingOverlayComponent,
     CategoryListComponent,
-    InfoDialogComponent
+    InfoDialogComponent,
+    CookieSnackbarComponent,
+    CookieDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -61,13 +66,15 @@ import { MatSelectModule } from '@angular/material/select';
     MatCheckboxModule,
     MatDialogModule,
     MatSnackBarModule,
-    MatSelectModule
+    MatSelectModule,
+    MatSlideToggleModule
   ],
   providers: [
     { provide: Window, useValue: window },
     { provide: Document, useValue: document },
     { provide: ErrorStateMatcher, useClass: ShowOnDirtyErrorStateMatcher },
-    { provide: HTTP_INTERCEPTORS, useClass: ErrorToastInterceptor, multi: true }
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorToastInterceptor, multi: true },
+    { provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: { verticalPosition: 'top' } }
   ],
   bootstrap: [AppComponent]
 })

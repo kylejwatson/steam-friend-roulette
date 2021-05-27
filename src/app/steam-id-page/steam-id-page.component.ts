@@ -39,11 +39,18 @@ export class SteamIdPageComponent extends SteamIdParam implements OnInit {
   }
 
   getFriends(): void {
-    this.cookie.put('steamid', this.steamId);
+    this.saveCookie('steamId', this.steamId);
     this.router.navigate(['/friend-select'], { queryParams: { id: this.steamId } });
   }
 
   openDialog(): void {
-    this.dialog.open(InfoDialogComponent);
+    const infoRef = this.dialog.open(InfoDialogComponent);
+    infoRef.afterClosed().subscribe(() => {
+      this.getCookiePermissions();
+    });
+  }
+
+  steamSignInAllowed(): boolean {
+    return !!this.cookiesAllowed?.session;
   }
 }

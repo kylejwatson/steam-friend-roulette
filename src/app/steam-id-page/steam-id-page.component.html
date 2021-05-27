@@ -38,7 +38,15 @@
                     shares your Steam information with us but we only use it for
                     finding your Steam ID.
                 </p>
-                <a href="{{ loginUrl }}"><img src="assets/sits_01.png" /></a>
+                <p *ngIf="!steamSignInAllowed()">
+                    This requires session cookies to work.
+                </p>
+                <input
+                    [disabled]="!steamSignInAllowed()"
+                    type="image"
+                    src="assets/sits_01.png"
+                    class="steam-sign-in"
+                />
             </div>
         </div>
 
