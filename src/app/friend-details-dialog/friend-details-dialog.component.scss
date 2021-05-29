@@ -1,0 +1,21 @@
+@import '../../variables.scss';
+
+.header {
+    display: flex;
+    margin-bottom: $margin;
+}
+.avatar {
+    border-radius: 50%;
+    margin-right: $margin;
+    width: 100px;
+}
+.titles {
+    margin-right: $margin;
+    h2,
+    h3 {
+        margin: 0;
+    }
+}
+.status {
+    display: flex;
+}

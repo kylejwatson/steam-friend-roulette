@@ -58,3 +58,9 @@
         margin-right: 4px;
     }
 }
+.player {
+    cursor: pointer;
+    &.highlight {
+        cursor: default;
+    }
+}

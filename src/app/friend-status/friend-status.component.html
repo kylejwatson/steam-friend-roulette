@@ -1,0 +1,14 @@
+<div class="status-container">
+    <span [class.offline]="lastLoggedOff()" class="game-status">{{
+        getStatus()
+    }}</span>
+    <mat-icon
+        *ngIf="!friend?.gameid"
+        [class.online]="friend?.personastate === 1"
+        [class.game]="friend?.gameid"
+        class="status-indicator"
+        >circle</mat-icon
+    ><mat-icon *ngIf="friend?.gameid" class="online game status-indicator"
+        >sports_esports</mat-icon
+    >
+</div>

@@ -32,6 +32,8 @@ import { MatSelectModule } from '@angular/material/select';
 import { CookieSnackbarComponent } from './cookie-snackbar/cookie-snackbar.component';
 import { CookieDialogComponent } from './cookie-dialog/cookie-dialog.component';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { FriendDetailsDialogComponent } from './friend-details-dialog/friend-details-dialog.component';
+import { FriendStatusComponent } from './friend-status/friend-status.component';
 
 @NgModule({
   declarations: [
@@ -45,7 +47,9 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
     CategoryListComponent,
     InfoDialogComponent,
     CookieSnackbarComponent,
-    CookieDialogComponent
+    CookieDialogComponent,
+    FriendDetailsDialogComponent,
+    FriendStatusComponent
   ],
   imports: [
     BrowserModule,

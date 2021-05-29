@@ -1,0 +1,22 @@
+<div class="header">
+    <img [src]="friend?.avatarfull" class="avatar" />
+    <div class="titles">
+        <h2>{{ friend?.personaname }}</h2>
+        <h3>{{ friend?.realname }}</h3>
+        <app-friend-status [friend]="friend" class="status"></app-friend-status>
+    </div>
+</div>
+
+<mat-dialog-content class="mat-typography">
+    <p>Friends since {{ formatTimestamp(friend?.friend_since) }}</p>
+    <p>
+        On Steam since
+        {{ formatTimestamp(friend?.timecreated) }}
+    </p>
+    <p *ngIf="friend?.loccountrycode">
+        Country code: {{ friend?.loccountrycode }}
+    </p>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close>Close</button>
+</mat-dialog-actions>

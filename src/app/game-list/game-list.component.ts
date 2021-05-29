@@ -1,4 +1,6 @@
 import { Component, Inject, Input, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { FriendDetailsDialogComponent } from '../friend-details-dialog/friend-details-dialog.component';
 import { Category, Game, Genre, UserStats } from '../game';
 import { SteamService } from '../steam.service';
 
@@ -18,7 +20,8 @@ export class GameListComponent implements OnInit {
 
   constructor(
     private window: Window,
-    private steamService: SteamService
+    private steamService: SteamService,
+    private dialog: MatDialog
   ) { }
 
   ngOnInit(): void {
@@ -89,5 +92,12 @@ export class GameListComponent implements OnInit {
   }
   isUser(userStat: UserStats): boolean {
     return userStat.steamId === this.steamId;
+  }
+  openPlayerDialog(userStat: UserStats): void {
+    if (!this.isUser(userStat)) {
+      this.dialog.open(FriendDetailsDialogComponent, {
+        data: userStat.steamId
+      });
+    }
   }
 }

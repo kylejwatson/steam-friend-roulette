@@ -1,0 +1,21 @@
+@use 'sass:map';
+@import '~@angular/material/theming';
+@import '../../variables.scss';
+
+.status-indicator {
+    margin-left: 8px;
+    font-size: large;
+    color: rgba(black, 0.12);
+    &.online {
+        color: map.get($mat-pink, 500);
+    }
+    &.game {
+        font-size: x-large;
+    }
+}
+.game-status {
+    color: map.get($mat-pink, 500);
+    &.offline {
+        color: rgba(black, 0.54);
+    }
+}

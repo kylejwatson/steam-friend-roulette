@@ -47,7 +47,11 @@
                     </thead>
                     <tbody>
                         <tr *ngFor="let userStat of game.userStats">
-                            <th [class.highlight]="isUser(userStat)">
+                            <th
+                                [class.highlight]="isUser(userStat)"
+                                class="player"
+                                (click)="openPlayerDialog(userStat)"
+                            >
                                 {{ getName(userStat) }}
                             </th>
                             <td [class.highlight]="userStat.playtime_2weeks">
@@ -65,9 +69,7 @@
                     {{ getGameDescription(game) }}
                 </p>
             </div>
-            <!-- <div class="cover-container"> -->
             <img [src]="getCoverImage(game)" class="cover-image" />
-            <!-- </div> -->
         </div>
     </mat-card>
 </div>

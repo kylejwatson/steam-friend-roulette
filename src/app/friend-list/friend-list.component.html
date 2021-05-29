@@ -24,24 +24,10 @@
             />
             <mat-card-title>{{ friend.personaname }}</mat-card-title>
             <mat-card-subtitle>{{ friend.realname }}</mat-card-subtitle>
-            <div class="status-container">
-                <span
-                    [class.offline]="lastLoggedOff(friend)"
-                    class="game-status"
-                    >{{ getStatus(friend) }}</span
-                >
-                <mat-icon
-                    *ngIf="!friend.gameid"
-                    [class.online]="friend.personastate === 1"
-                    [class.game]="friend.gameid"
-                    class="status-indicator"
-                    >circle</mat-icon
-                ><mat-icon
-                    *ngIf="friend.gameid"
-                    class="online game status-indicator"
-                    >sports_esports</mat-icon
-                >
-            </div>
+            <app-friend-status
+                [friend]="friend"
+                class="status"
+            ></app-friend-status>
         </mat-card-header>
     </mat-card>
 </div>

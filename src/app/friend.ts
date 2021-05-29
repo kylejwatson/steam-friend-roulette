@@ -13,4 +13,6 @@ export interface Friend {
     element?: Element;
     lastlogoff: number;
     friend_since: number;
+    loccountrycode?: string;
+    timecreated?: number;
 }

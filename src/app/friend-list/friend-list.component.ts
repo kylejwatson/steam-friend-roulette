@@ -34,30 +34,4 @@ export class FriendListComponent implements OnInit {
       behavior: 'smooth'
     });
   }
-
-  getGameDetails(friend: Friend): GameDetails | undefined {
-    if (friend.gameid) {
-      return this.steamService.getGameDetails(Number.parseInt(friend.gameid, 10));
-    }
-    return undefined;
-  }
-  dateString(unix: number): string {
-    return new Date(unix * 1000).toString();
-  }
-  lastLoggedOff(friend: Friend): string {
-    if (friend.gameid || friend.personastate === 1) {
-      return '';
-    }
-    const date = new Date(friend.lastlogoff * 1000);
-    const dateText = formatRelative(date, new Date(), { locale: enGB });
-
-    return dateText.charAt(0).toUpperCase() + dateText.substring(1);
-  }
-  getStatus(friend: Friend): string {
-    const details = this.getGameDetails(friend);
-    if (details) {
-      return details.name;
-    }
-    return this.lastLoggedOff(friend) || 'Online';
-  }
 }
