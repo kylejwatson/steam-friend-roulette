@@ -1,7 +1,7 @@
-import { Component, Inject, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { FriendDetailsDialogComponent } from '../friend-details-dialog/friend-details-dialog.component';
-import { Category, Game, Genre, UserStats } from '../game';
+import { Game, Genre, UserStats } from '../game';
 import { SteamService } from '../steam.service';
 
 interface CategoryIcon {

@@ -1,9 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { formatRelative } from 'date-fns';
-import { enGB } from 'date-fns/locale';
+import formatRelative from 'date-fns/formatRelative';
+import enGB from 'date-fns/locale/en-GB';
 import { Friend } from '../friend';
-import { GameDetails } from '../game';
-import { SteamService } from '../steam.service';
 
 @Component({
   selector: 'app-friend-status',

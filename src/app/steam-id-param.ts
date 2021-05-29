@@ -7,7 +7,6 @@ import { Observable } from 'rxjs';
 import * as SteamID from 'steamid';
 import { CookieSnackbarComponent } from './cookie-snackbar/cookie-snackbar.component';
 import { CookieSettings } from './cookie';
-import { ThrowStmt } from '@angular/compiler';
 
 export class SteamIdParam {
     steamId = '';

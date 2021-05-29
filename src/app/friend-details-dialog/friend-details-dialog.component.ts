@@ -1,9 +1,8 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { formatRelative } from 'date-fns';
-import { enGB } from 'date-fns/locale';
+import formatRelative from 'date-fns/formatRelative';
+import enGB from 'date-fns/locale/en-GB';
 import { Friend } from '../friend';
-import { GameDetails } from '../game';
 import { SteamService } from '../steam.service';
 
 @Component({

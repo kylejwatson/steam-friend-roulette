@@ -1,9 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Friend } from '../friend';
-import { GameDetails } from '../game';
 import { SteamService } from '../steam.service';
-import { formatRelative } from 'date-fns';
-import { enGB } from 'date-fns/locale';
 
 @Component({
   selector: 'app-friend-list',
