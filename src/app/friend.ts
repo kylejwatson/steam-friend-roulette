@@ -15,4 +15,5 @@ export interface Friend {
     friend_since: number;
     loccountrycode?: string;
     timecreated?: number;
+    gameextrainfo?: string;
 }

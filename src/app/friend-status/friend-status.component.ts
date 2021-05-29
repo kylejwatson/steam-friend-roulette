@@ -14,15 +14,15 @@ export class FriendStatusComponent implements OnInit {
 
 
   @Input() friend?: Friend;
-  constructor(private steamService: SteamService) { }
+  constructor() { }
 
   ngOnInit(): void {
   }
 
 
-  getGameDetails(): GameDetails | undefined {
+  getGameName(): string | undefined {
     if (this.friend?.gameid) {
-      return this.steamService.getGameDetails(Number.parseInt(this.friend?.gameid, 10));
+      return this.friend.gameextrainfo;
     }
     return undefined;
   }
@@ -37,10 +37,6 @@ export class FriendStatusComponent implements OnInit {
     return dateText.charAt(0).toUpperCase() + dateText.substring(1);
   }
   getStatus(): string {
-    const details = this.getGameDetails();
-    if (details) {
-      return details.name;
-    }
-    return this.lastLoggedOff() || 'Online';
+    return this.getGameName() || this.lastLoggedOff() || 'Online';
   }
 }

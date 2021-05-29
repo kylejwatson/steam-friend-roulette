@@ -49,11 +49,7 @@ export class SteamService {
     const friendsResponse = this.http.get<Friend[]>(url);
     return friendsResponse.pipe(
       map(friends => {
-        const gameIds: number[] = [];
         this.friends = friends.map(friend => {
-          if (friend.gameid) {
-            gameIds.push(Number.parseInt(friend.gameid, 10));
-          }
           const alreadyLoaded = this.friends.find(currentFriend => currentFriend.steamid === friend.steamid);
           const selectedInCookie = this.friendSelectionCookie[steamId]?.includes(friend.steamid);
 
@@ -63,7 +59,6 @@ export class SteamService {
           };
         });
         delete this.friendSelectionCookie[steamId];
-        this.getGames(gameIds);
         return this.friends;
       })
     );

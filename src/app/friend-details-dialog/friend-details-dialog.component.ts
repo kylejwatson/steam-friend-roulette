@@ -24,11 +24,6 @@ export class FriendDetailsDialogComponent implements OnInit {
     this.friend = this.steamService.friends.find(friend => friend.steamid === this.steamId);
   }
 
-  gameDetails(): GameDetails | undefined {
-    const gameid = this.friend?.gameid;
-    return gameid ? this.steamService.getGameDetails(Number.parseInt(gameid, 10)) : undefined;
-  }
-
   formatTimestamp(time?: number): string {
     return time === undefined ? '' : formatRelative(new Date(time * 1000), new Date(), { locale: enGB });
   }
