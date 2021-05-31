@@ -94,6 +94,8 @@ export class GameViewPageComponent extends SteamIdParam implements OnInit {
       }
       if (steamIds.length > 2) {
         this.sharedGames = games.filter(game => game.userStats.length >= 2);
+      } else {
+        this.sharedGames = commonGames;
       }
       this.loading = false;
     });
