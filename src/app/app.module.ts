@@ -34,6 +34,7 @@ import { CookieDialogComponent } from './cookie-dialog/cookie-dialog.component';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { FriendDetailsDialogComponent } from './friend-details-dialog/friend-details-dialog.component';
 import { FriendStatusComponent } from './friend-status/friend-status.component';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 @NgModule({
   declarations: [
@@ -71,7 +72,8 @@ import { FriendStatusComponent } from './friend-status/friend-status.component';
     MatDialogModule,
     MatSnackBarModule,
     MatSelectModule,
-    MatSlideToggleModule
+    MatSlideToggleModule,
+    MatPaginatorModule
   ],
   providers: [
     { provide: Window, useValue: window },

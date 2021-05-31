@@ -10,6 +10,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Friend } from '../friend';
 import { MatSelectChange } from '@angular/material/select';
 import { Title } from '@angular/platform-browser';
+import { PageEvent } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-game-view-page',
@@ -29,6 +30,8 @@ export class GameViewPageComponent extends SteamIdParam implements OnInit {
   orderUser = '';
   filters = [1, 2];
   owned = true;
+  pageEvent: PageEvent = new PageEvent();
+  defaultPageSize = 5;
 
   @ViewChild(MatAutocompleteTrigger) autocompleteTrigger?: MatAutocompleteTrigger;
 
@@ -240,5 +243,12 @@ export class GameViewPageComponent extends SteamIdParam implements OnInit {
   }
   toggleOwned(): void {
     this.owned = !this.owned;
+  }
+  paged(games: Game[]): Game[] {
+    const index = this.pageEvent.pageIndex || 0;
+    const size = this.pageEvent.pageSize || this.defaultPageSize;
+    const start = index * size;
+    const end = (index + 1) * size;
+    return games.slice(start, end);
   }
 }

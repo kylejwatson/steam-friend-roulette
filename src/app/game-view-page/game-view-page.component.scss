@@ -62,3 +62,8 @@
         margin-right: 4px;
     }
 }
+.paginator {
+    display: flex;
+    justify-content: center;
+    margin-bottom: $margin;
+}
