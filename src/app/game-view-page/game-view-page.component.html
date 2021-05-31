@@ -87,6 +87,14 @@
                 <mat-icon *ngIf="allTime === 1">arrow_drop_up</mat-icon>
             </span>
         </button>
+
+        <button
+            mat-flat-button
+            (click)="toggleOwned()"
+            [color]="owned ? 'accent' : ''"
+        >
+            Players Owned
+        </button>
     </div>
     <mat-form-field appearance="fill">
         <mat-label>Filters</mat-label>

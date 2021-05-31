@@ -64,3 +64,9 @@
         cursor: default;
     }
 }
+.not-owned {
+    opacity: 0.26;
+}
+.own-count {
+    color: map.get($mat-pink, 500);
+}

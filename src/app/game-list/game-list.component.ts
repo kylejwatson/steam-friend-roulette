@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { Friend } from '../friend';
 import { FriendDetailsDialogComponent } from '../friend-details-dialog/friend-details-dialog.component';
 import { Game, Genre, UserStats } from '../game';
 import { SteamService } from '../steam.service';
@@ -28,6 +29,9 @@ export class GameListComponent implements OnInit {
   }
 
   convertGameTime(minutes: number): string {
+    if (minutes === -1) {
+      return 'Not owned';
+    }
     if (!minutes) {
       return 'Not played';
     }
@@ -93,11 +97,34 @@ export class GameListComponent implements OnInit {
   isUser(userStat: UserStats): boolean {
     return userStat.steamId === this.steamId;
   }
+  ownedByAll(game: Game): boolean {
+    return game.userStats.length === this.steamService.selectedFriends().length + 1;
+  }
+  getUserStats(game: Game): UserStats[] {
+    const friends = [{ steamid: this.steamId }, ...this.steamService.selectedFriends()];
+    return friends.map(friend => {
+      const userStat = game.userStats.find(stat => stat.steamId === friend.steamid);
+      if (userStat) {
+        return userStat;
+      }
+      return {
+        steamId: friend.steamid,
+        playtime_forever: -1,
+        playtime_2weeks: -1
+      };
+    });
+  }
   openPlayerDialog(userStat: UserStats): void {
     if (!this.isUser(userStat)) {
       this.dialog.open(FriendDetailsDialogComponent, {
         data: userStat.steamId
       });
     }
+  }
+  hasPlayedRecently(userStat: UserStats): boolean {
+    return userStat.playtime_2weeks > 0;
+  }
+  isOwned(userStat: UserStats): boolean {
+    return userStat.playtime_2weeks !== -1 && userStat.playtime_forever !== -1;
   }
 }

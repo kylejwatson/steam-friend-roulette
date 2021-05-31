@@ -21,12 +21,14 @@ export class GameViewPageComponent extends SteamIdParam implements OnInit {
   searchInput = '';
   currentSearch = '';
   games: Game[] = [];
+  sharedGames: Game[] = [];
   loading = true;
   alphabetical = 0;
   twoWeeks = 0;
   allTime = -1;
   orderUser = '';
   filters = [1, 2];
+  owned = true;
 
   @ViewChild(MatAutocompleteTrigger) autocompleteTrigger?: MatAutocompleteTrigger;
 
@@ -80,12 +82,18 @@ export class GameViewPageComponent extends SteamIdParam implements OnInit {
     this.loading = true;
     const steamIds = this.steamService.selectedIds(this.steamId);
     steamIds.unshift(this.steamId);
+
     this.steamService.getSharedGames(steamIds).subscribe(games => {
       this.games = games;
-      if (games.length === 0) {
+
+      const commonGames = games.filter(game => game.userStats.length === steamIds.length);
+      if (commonGames.length === 0) {
         this.snackBar.open('No games in common found between you and the friends you selected, try selecting less friends', 'Close', {
           duration: 5000
         });
+      }
+      if (steamIds.length > 2) {
+        this.sharedGames = games.filter(game => game.userStats.length >= 2);
       }
       this.loading = false;
     });
@@ -96,7 +104,7 @@ export class GameViewPageComponent extends SteamIdParam implements OnInit {
   }
 
   filteredResults(): Game[] {
-    return this.games.filter(game => game.name.toLowerCase().includes(this.searchInput.toLowerCase()));
+    return this.sharedGames.filter(game => game.name.toLowerCase().includes(this.searchInput.toLowerCase()));
   }
   displayFn(game: string): string {
     return game || '';
@@ -108,9 +116,9 @@ export class GameViewPageComponent extends SteamIdParam implements OnInit {
   searchedGames(): Game[] {
     if (!this.currentSearch || !this.searchInput) {
       this.currentSearch = '';
-      return this.games;
+      return this.sharedGames;
     }
-    return this.games.filter(game => game.name.toLowerCase().includes(this.currentSearch.toLowerCase()));
+    return this.sharedGames.filter(game => game.name.toLowerCase().includes(this.currentSearch.toLowerCase()));
   }
   enabledCategories(categoryList: Category[]): Category[] {
     const enabled: Category[] = [];
@@ -141,7 +149,7 @@ export class GameViewPageComponent extends SteamIdParam implements OnInit {
   }
 
   getCategories(): Category[] {
-    return categories.filter(category => this.steamService.gamesIncludeCategory(this.games, category));
+    return categories.filter(category => this.steamService.gamesIncludeCategory(this.sharedGames, category));
   }
 
   toggleAlphabetical(): void {
@@ -174,19 +182,19 @@ export class GameViewPageComponent extends SteamIdParam implements OnInit {
 
   orderGames(games: Game[]): Game[] {
     const orderId = this.orderUser || this.steamId;
-    return games.sort((gameA, gameB) => {
+    const sorted = games.sort((gameA, gameB) => {
       const userStatsA = gameA.userStats.find(user => user.steamId === orderId);
       const userStatsB = gameB.userStats.find(user => user.steamId === orderId);
       if (this.twoWeeks !== 0) {
-        const twoWeeksA = userStatsA?.playtime_2weeks || 0;
-        const twoWeeksB = userStatsB?.playtime_2weeks || 0;
+        const twoWeeksA = userStatsA?.playtime_2weeks || -1;
+        const twoWeeksB = userStatsB?.playtime_2weeks || -1;
         return this.twoWeeks === 1 ?
           twoWeeksA - twoWeeksB :
           twoWeeksB - twoWeeksA;
       }
       if (this.allTime !== 0) {
-        const allTimeA = userStatsA?.playtime_forever || 0;
-        const allTimeB = userStatsB?.playtime_forever || 0;
+        const allTimeA = userStatsA?.playtime_forever || -1;
+        const allTimeB = userStatsB?.playtime_forever || -1;
         return this.allTime === 1 ?
           allTimeA - allTimeB :
           allTimeB - allTimeA;
@@ -201,6 +209,12 @@ export class GameViewPageComponent extends SteamIdParam implements OnInit {
 
       return 0;
     });
+    if (this.owned) {
+      sorted.sort((gameA, gameB) => {
+        return gameB.userStats.length - gameA.userStats.length;
+      });
+    }
+    return sorted;
   }
   getCategory(id: number): Category | undefined {
     return categories.find(category => category.id === id);
@@ -221,5 +235,8 @@ export class GameViewPageComponent extends SteamIdParam implements OnInit {
       sub.checked = checked;
       this.setAll(sub, checked);
     });
+  }
+  toggleOwned(): void {
+    this.owned = !this.owned;
   }
 }

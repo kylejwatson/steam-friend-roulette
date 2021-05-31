@@ -2,7 +2,12 @@
     <mat-card *ngFor="let game of games" class="game-card">
         <mat-card-header>
             <img mat-card-avatar [src]="game.img_icon_url" />
-            <mat-card-title>{{ game.name }}</mat-card-title>
+            <mat-card-title
+                >{{ game.name }}
+                <span class="own-count" *ngIf="!ownedByAll(game)"
+                    >(Owned by {{ game.userStats.length }} players)</span
+                ></mat-card-title
+            >
             <mat-card-subtitle>
                 <div class="category-container">
                     <div
@@ -46,7 +51,10 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let userStat of game.userStats">
+                        <tr
+                            *ngFor="let userStat of getUserStats(game)"
+                            [class.not-owned]="!isOwned(userStat)"
+                        >
                             <th
                                 [class.highlight]="isUser(userStat)"
                                 class="player"
@@ -54,7 +62,7 @@
                             >
                                 {{ getName(userStat) }}
                             </th>
-                            <td [class.highlight]="userStat.playtime_2weeks">
+                            <td [class.highlight]="hasPlayedRecently(userStat)">
                                 {{ convertGameTime(userStat.playtime_2weeks) }}
                             </td>
                             <td>
